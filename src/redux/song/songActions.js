@@ -7,7 +7,7 @@ export const addSong = (number = 1) => {
   };
 };
 
-// an action creator returning a function instead of an action
+// an action creator returns a function instead of an action
 export const fetchData = () => {
   return (dispatch) => {
     dispatch(fetchDataLoading());
@@ -15,7 +15,7 @@ export const fetchData = () => {
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         const users = response.data;
-        dispatch(fetchDataSuccess(users));
+        fetchDataSuccess(users);
       })
       .catch((error) => dispatch(fetchDataFailure(error)));
   };
