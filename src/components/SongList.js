@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { addSong } from "../redux/song/songActions";
+import { addSong, fetchData } from "../redux/song/songActions";
 
 const SongList = (props) => {
+  const [number, setNumber] = useState(1);
+
   console.log(props);
   return (
     <div>
-      <h2>Number of cakes: {props.numOfSongs}</h2>
+      <h2>Number of songs added: {props.numOfSongs}</h2>
+      <input
+        type="text"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+      />
 
-      <button onClick={props.addSong}>Add song</button>
+      <button onClick={() => props.addSong(number)}>Add song</button>
     </div>
   );
 };
@@ -22,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addSong: () => dispatch(addSong()),
+    addSong: (number) => dispatch(addSong(number)),
   };
 };
 
