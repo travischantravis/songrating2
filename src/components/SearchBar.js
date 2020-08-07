@@ -25,7 +25,7 @@ const SearchBar = (props) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            getTracks(searchValue);
+            if (searchValue) getTracks(searchValue);
           }}
         >
           Search
