@@ -1,19 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
 
 const SearchBar = (props) => {
   const { getTracks, tracks } = props;
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    getTracks();
+    getTracks("1");
   }, []);
 
   console.log(props);
   return (
     <div>
       <h2>Search Bar</h2>
+      <form>
+        <input
+          type="text"
+          placeholder="Tracks"
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            getTracks(searchValue);
+          }}
+        >
+          Search
+        </button>
+      </form>
       {tracks && tracks.map((track, i) => <p key={i}>{track.name}</p>)}
     </div>
   );
@@ -28,7 +45,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTracks: () => dispatch(getTracks()),
+    getTracks: (searchValue) => dispatch(getTracks(searchValue)),
   };
 };
 

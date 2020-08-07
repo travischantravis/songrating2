@@ -39,7 +39,7 @@ const getAccessToken = () => {
   };
 };
 
-const searchTracks = (accessToken) => {
+export const searchTracks = (accessToken, searchValue) => {
   const options = {
     headers: {
       Authorization: "Bearer " + accessToken,
@@ -52,7 +52,7 @@ const searchTracks = (accessToken) => {
 
     axios
       .get(
-        "https://api.spotify.com/v1/search?q=happy&type=track&limit=10",
+        `https://api.spotify.com/v1/search?q=${searchValue}&type=track&limit=10`,
         options
       )
       .then((response) => {
@@ -65,9 +65,11 @@ const searchTracks = (accessToken) => {
   };
 };
 
-export const getTracks = () => (dispatch) => {
+export const getTracks = (searchValue) => (dispatch) => {
+  console.log(searchValue);
+
   dispatch(getAccessToken()).then((accessToken) =>
-    dispatch(searchTracks(accessToken))
+    dispatch(searchTracks(accessToken, searchValue))
   );
 };
 
