@@ -1,3 +1,5 @@
+import * as song from "./songTypes";
+
 const initState = {
   numOfSongs: 0,
   loading: false,
@@ -7,24 +9,30 @@ const initState = {
 
 const songReducer = (state = initState, action) => {
   switch (action.type) {
-    case "ADD_SONG":
+    case song.ADD_SONG:
       return {
         ...state,
         numOfSongs: state.numOfSongs + parseInt(action.payload),
       };
-    case "FETCH_DATA_LOADING":
+
+    case song.DELETE_SONG:
+      return {
+        ...state,
+        numOfSongs: state.numOfSongs - parseInt(action.payload),
+      };
+    case song.FETCH_DATA_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case "FETCH_DATA_SUCCESS":
+    case song.FETCH_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
         users: action.payload,
         error: "",
       };
-    case "FETCH_DATA_FAILURE":
+    case song.FETCH_DATA_FAILURE:
       return {
         ...state,
         loading: false,

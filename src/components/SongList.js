@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { addSong, fetchData } from "../redux/song/songActions";
+import { addSong, deleteSong, fetchData } from "../redux/song/songActions";
 
 const SongList = (props) => {
   const [number, setNumber] = useState(1);
-  const { userData } = props;
+  const { userData, fetchData } = props;
 
   useEffect(() => {
-    props.fetchData();
+    fetchData();
   }, []);
+
+  console.log(props);
 
   return (
     <div>
@@ -21,6 +23,8 @@ const SongList = (props) => {
       />
 
       <button onClick={() => props.addSong(number)}>Add song</button>
+
+      <button onClick={() => props.deleteSong(number)}>Delete song</button>
       {userData.loading ? (
         <h2>Loading</h2>
       ) : userData.error ? (
@@ -29,7 +33,8 @@ const SongList = (props) => {
         <div>
           <h2>Users list</h2>
           <div>
-            {userData.users &&
+            {userData &&
+              userData.users &&
               userData.users.map((user, i) => <p key={i}>{user.name}</p>)}
           </div>
         </div>
@@ -48,6 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addSong: (number) => dispatch(addSong(number)),
+    deleteSong: (number) => dispatch(deleteSong(number)),
     fetchData: () => dispatch(fetchData()),
   };
 };

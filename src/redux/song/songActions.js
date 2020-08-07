@@ -1,8 +1,16 @@
 import axios from "axios";
+import * as song from "./songTypes";
 
 export const addSong = (number = 1) => {
   return {
-    type: "ADD_SONG",
+    type: song.ADD_SONG,
+    payload: number,
+  };
+};
+
+export const deleteSong = (number = 1) => {
+  return {
+    type: song.DELETE_SONG,
     payload: number,
   };
 };
@@ -15,22 +23,22 @@ export const fetchData = () => {
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         const users = response.data;
-        fetchDataSuccess(users);
+        dispatch(fetchDataSuccess(users));
       })
       .catch((error) => dispatch(fetchDataFailure(error)));
   };
 };
 
 const fetchDataLoading = () => ({
-  type: "FETCH_DATA_LOADING",
+  type: song.FETCH_DATA_LOADING,
 });
 
 const fetchDataSuccess = (data) => ({
-  type: "FETCH_DATA_SUCCESS",
+  type: song.FETCH_DATA_SUCCESS,
   payload: data,
 });
 
 const fetchDataFailure = (error) => ({
-  type: "FETCH_DATA_FAILURE",
+  type: song.FETCH_DATA_FAILURE,
   payload: error,
 });
