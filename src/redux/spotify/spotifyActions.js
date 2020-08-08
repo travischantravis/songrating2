@@ -66,8 +66,6 @@ export const searchTracks = (accessToken, searchValue) => {
 };
 
 export const getTracks = (searchValue) => (dispatch) => {
-  console.log(searchValue);
-
   dispatch(getAccessToken()).then((accessToken) =>
     dispatch(searchTracks(accessToken, searchValue))
   );

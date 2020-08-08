@@ -1,44 +1,62 @@
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import { connect } from "react-redux";
+import { Search } from "semantic-ui-react";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
 
 const SearchBar = (props) => {
-  const { getTracks, tracks } = props;
-  const [searchValue, setSearchValue] = useState("");
-
-  useEffect(() => {
-    getTracks("1");
-  }, []);
+  const { getTracks, tracks, loading } = props;
+  const [input, setInput] = useState("");
+  const [track, setTrack] = useState("");
 
   console.log(props);
   return (
     <div>
-      <h2>Search Bar</h2>
-      <form>
-        <input
-          type="text"
-          placeholder="Tracks"
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            if (searchValue) getTracks(searchValue);
-          }}
-        >
-          Search
-        </button>
-      </form>
-      {tracks && tracks.map((track, i) => <p key={i}>{track.name}</p>)}
+      <p>Search for a track: </p>
+      <Search
+        loading={loading}
+        onResultSelect={(e, { result }) => {
+          e.preventDefault();
+          console.log(result);
+          setTrack(result);
+        }}
+        onSearchChange={_.debounce(
+          (e, props) => {
+            const { value } = props;
+            setInput(value);
+            if (value) getTracks(value);
+          },
+          500,
+          {
+            leading: true,
+          }
+        )}
+        results={tracks.map((track) => {
+          const artistNames = track.artists
+            .map((artist) => artist.name)
+            .join(", ");
+
+          return {
+            title: track.name,
+            image: track.album.images[0].url,
+            description: artistNames,
+            id: track.id,
+          };
+        })}
+        value={input}
+        size="small"
+
+        // resultRenderer={resultRenderer}
+      ></Search>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    accessToken: state.spotify.accessToken,
+    // accessToken: state.spotify.accessToken,
+    loading: state.spotify.loading,
     tracks: state.spotify.tracks,
   };
 };
