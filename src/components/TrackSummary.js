@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { fetchData } from "../redux/track/trackActions";
+import TrackCommentForm from "./TrackCommentForm";
 
 const TrackSummary = (props) => {
   const { track } = props;
 
   return (
-    <div className="trackSummaryContainer">
+    <div className="track-summary-container">
       {track.title ? (
         <div>
           <h2>
             {`${track.artists} - ${track.title} `}{" "}
             <span style={{ color: "lightgreen" }}>{track.popularity}</span>
           </h2>
-          <img className="trackImage" src={track.image} alt="" />
-          <button className="myButton openCommentForm">Add comment</button>
+          <img className="track-image" src={track.image} alt="" />
+          <button className="my-button btn-open-form">Add comment</button>
+          <TrackCommentForm />
         </div>
       ) : null}
     </div>
