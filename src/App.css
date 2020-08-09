@@ -1,3 +1,23 @@
+/* Button */
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.myButton {
+  padding: 5px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(27, 31, 35, 0.04),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.25);
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -20,4 +40,20 @@ div.results {
 /* Track Summary */
 .trackImage {
   max-width: 200px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Track Comment Form todo transition */
+.openCommentForm {
+  display: block;
+  user-select: none;
+  color: #24292e;
+  background-color: #fafbfc;
+  border-color: rgba(27, 31, 35, 0.15);
+}
+
+.openCommentForm:hover {
+  background-color: #f3f4f6;
+  transition-duration: 0.1s;
 }

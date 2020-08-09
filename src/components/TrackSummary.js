@@ -10,8 +10,12 @@ const TrackSummary = (props) => {
     <div className="trackSummaryContainer">
       {track.title ? (
         <div>
-          <h2>{`${track.artists} - ${track.title}`}</h2>
+          <h2>
+            {`${track.artists} - ${track.title} `}{" "}
+            <span style={{ color: "lightgreen" }}>{track.popularity}</span>
+          </h2>
           <img className="trackImage" src={track.image} alt="" />
+          <button className="myButton openCommentForm">Add comment</button>
         </div>
       ) : null}
     </div>

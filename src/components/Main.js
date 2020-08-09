@@ -1,10 +1,12 @@
 import React from "react";
+import { Route } from "react-router-dom";
+
 import TrackSummary from "./TrackSummary";
 
 const Main = () => {
   return (
     <div className="main">
-      <TrackSummary />
+      <Route exact path="/" component={TrackSummary} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Search } from "semantic-ui-react";
@@ -57,7 +57,6 @@ const SearchBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // accessToken: state.spotify.accessToken,
     loading: state.spotify.loading,
     tracks: state.spotify.tracks,
   };
