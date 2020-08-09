@@ -1,3 +1,23 @@
-.App {
-  margin: 20px;
+/* Navbar */
+.navbar {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  justify-content: space-around;
+}
+
+/* Search bar */
+div.results {
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+/* Main */
+.main {
+  margin: 0 20px;
+}
+
+/* Track Summary */
+.trackImage {
+  max-width: 200px;
 }

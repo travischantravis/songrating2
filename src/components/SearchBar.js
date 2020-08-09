@@ -4,21 +4,21 @@ import { connect } from "react-redux";
 import { Search } from "semantic-ui-react";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
+import { setTrack } from "../redux/track/trackActions";
 
 const SearchBar = (props) => {
-  const { getTracks, tracks, loading } = props;
+  const { getTracks, setTrack, tracks, loading } = props;
   const [input, setInput] = useState("");
-  const [track, setTrack] = useState("");
 
   console.log(props);
+
   return (
-    <div>
-      <p>Search for a track: </p>
+    <div className="searchBarContainer">
       <Search
         loading={loading}
         onResultSelect={(e, { result }) => {
           e.preventDefault();
-          console.log(result);
+          setInput(result.title);
           setTrack(result);
         }}
         onSearchChange={_.debounce(
@@ -38,16 +38,18 @@ const SearchBar = (props) => {
             .join(", ");
 
           return {
+            artists: artistNames,
+            artistid: track.artists[0].id,
+            description: artistNames,
             title: track.name,
             image: track.album.images[0].url,
-            description: artistNames,
             id: track.id,
+            popularity: track.popularity,
           };
         })}
         value={input}
         size="small"
-
-        // resultRenderer={resultRenderer}
+        placeholder="Search a track"
       ></Search>
     </div>
   );
@@ -64,6 +66,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTracks: (searchValue) => dispatch(getTracks(searchValue)),
+    setTrack: (track) => dispatch(setTrack(track)),
   };
 };
 

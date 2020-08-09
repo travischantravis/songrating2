@@ -1,19 +1,5 @@
 import axios from "axios";
-import * as song from "./songTypes";
-
-export const addSong = (number = 1) => {
-  return {
-    type: song.ADD_SONG,
-    payload: number,
-  };
-};
-
-export const deleteSong = (number = 1) => {
-  return {
-    type: song.DELETE_SONG,
-    payload: number,
-  };
-};
+import * as track from "./trackTypes";
 
 // an action creator returns a function instead of an action
 export const fetchData = () => {
@@ -29,16 +15,21 @@ export const fetchData = () => {
   };
 };
 
+export const setTrack = (data) => ({
+  type: track.SET_TRACK,
+  payload: data,
+});
+
 const fetchDataLoading = () => ({
-  type: song.FETCH_DATA_LOADING,
+  type: track.FETCH_DATA_LOADING,
 });
 
 const fetchDataSuccess = (data) => ({
-  type: song.FETCH_DATA_SUCCESS,
+  type: track.FETCH_DATA_SUCCESS,
   payload: data,
 });
 
 const fetchDataFailure = (error) => ({
-  type: song.FETCH_DATA_FAILURE,
+  type: track.FETCH_DATA_FAILURE,
   payload: error,
 });

@@ -2,15 +2,15 @@ import React from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import SongList from "./components/SongList";
-import SearchBar from "./components/SearchBar";
+import NavBar from "./components/NavBar";
+import Main from "./components/Main";
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <SearchBar />
-        {/* <SongList /> */}
+        <NavBar />
+        <Main />
       </div>
     </Provider>
   );

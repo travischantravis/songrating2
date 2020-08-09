@@ -47,12 +47,16 @@ export const searchTracks = (accessToken, searchValue) => {
     },
     json: true,
   };
+
+  // Escape space
+  const query = searchValue.replace(" ", "%20");
+
   return (dispatch) => {
     dispatch(fetchTracksLoading());
 
     axios
       .get(
-        `https://api.spotify.com/v1/search?q=${searchValue}&type=track&limit=10`,
+        `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`,
         options
       )
       .then((response) => {

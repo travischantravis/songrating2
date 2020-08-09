@@ -1,0 +1,6 @@
+// action types
+
+export const FETCH_DATA_LOADING = "TRACK_FETCH_DATA_LOADING";
+export const FETCH_DATA_SUCCESS = "TRACK_FETCH_DATA_SUCCESS";
+export const FETCH_DATA_FAILURE = "TRACK_FETCH_DATA_FAILURE";
+export const SET_TRACK = "SET_TRACK";

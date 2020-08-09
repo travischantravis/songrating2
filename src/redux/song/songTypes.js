@@ -1,7 +1,0 @@
-// action types
-
-export const FETCH_DATA_LOADING = "SONG_FETCH_DATA_LOADING";
-export const FETCH_DATA_SUCCESS = "SONG_FETCH_DATA_SUCCESS";
-export const FETCH_DATA_FAILURE = "SONG_FETCH_DATA_FAILURE";
-export const ADD_SONG = "ADD_SONG";
-export const DELETE_SONG = "DELETE_SONG";

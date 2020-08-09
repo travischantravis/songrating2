@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import songReducer from "./song/songReducer";
+import trackReducer from "./track/trackReducer";
 import spotifyReducer from "./spotify/spotifyReducer";
 
 const rootReducer = combineReducers({
-  song: songReducer,
+  track: trackReducer,
   spotify: spotifyReducer,
 });
 
