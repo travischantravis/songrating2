@@ -100,3 +100,7 @@ div.results {
 #trackCommentForm div {
   padding-bottom: 10px;
 }
+
+.error-msg {
+  color: red;
+}
