@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { setFormVisible } from "../redux/track/trackActions";
 
 const validationSchema = Yup.object().shape({
   rating: Yup.number()
@@ -20,20 +21,15 @@ const handleFormSubmit = (values, actions) => {
   }, 500);
 };
 
-const handleFormCancel = (e) => {
-  console.log(e);
-  console.log("Cancel form");
-};
-
-const TrackCommentForm = () => {
+const TrackCommentForm = (props) => {
   return (
     <Formik
       initialValues={{ rating: "", comment: "", isFav: false }}
       validationSchema={validationSchema}
       onSubmit={handleFormSubmit}
     >
-      {(props) => {
-        const { touched, errors } = props;
+      {(formikProps) => {
+        const { touched, errors } = formikProps;
         return (
           <Form id="trackCommentForm">
             <div>
@@ -58,24 +54,30 @@ const TrackCommentForm = () => {
                 <p className="error-msg">{errors.comment}</p>
               ) : null}
             </div>
+            <div>
+              <Field type="checkbox" name="isFav" className="form-checkbox" />
+              <span className="checkbox-label">Favorite song?</span>
+            </div>
 
             <div>
               <button
                 className="my-button btn-primary"
                 type="submit"
-                disabled={props.isSubmitting}
+                disabled={formikProps.isSubmitting}
               >
                 Add
               </button>
               <button
-                className="my-button cancel-form"
+                className="my-button btn-cancel-form"
                 type="button"
-                onClick={handleFormCancel}
-                disabled={props.isSubmitting}
+                onClick={() => {
+                  props.setFormVisible(false);
+                }}
+                disabled={formikProps.isSubmitting}
               >
                 Cancel
               </button>
-              <pre>{JSON.stringify(props, null, 2)}</pre>
+              <pre>{JSON.stringify(formikProps, null, 2)}</pre>
             </div>
           </Form>
         );

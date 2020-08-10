@@ -60,6 +60,12 @@ button:focus {
   width: 100%;
 }
 
+.form-checkbox {
+  margin-right: 5px;
+  margin-left: 3px;
+  transform: scale(1.2);
+}
+
 textarea {
   height: 80px;
 }
@@ -103,4 +109,12 @@ div.results {
 
 .error-msg {
   color: red;
+}
+
+.checkbox-label {
+  font-weight: 600;
+}
+
+.btn-cancel-form {
+  margin-left: 5px;
 }

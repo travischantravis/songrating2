@@ -4,6 +4,7 @@ const initState = {
   track: {},
   loading: false,
   error: "",
+  isFormVisible: false,
 };
 
 const trackReducer = (state = initState, action) => {
@@ -31,6 +32,11 @@ const trackReducer = (state = initState, action) => {
       return {
         ...state,
         track: action.payload,
+      };
+    case track.SET_FORM_VISIBLE:
+      return {
+        ...state,
+        isFormVisible: action.payload,
       };
     default:
       return state;

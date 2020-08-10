@@ -20,6 +20,11 @@ export const setTrack = (data) => ({
   payload: data,
 });
 
+export const setFormVisible = (data) => ({
+  type: track.SET_FORM_VISIBLE,
+  payload: data,
+});
+
 const fetchDataLoading = () => ({
   type: track.FETCH_DATA_LOADING,
 });

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-import { fetchData } from "../redux/track/trackActions";
+import { fetchData, setFormVisible } from "../redux/track/trackActions";
 import TrackCommentForm from "./TrackCommentForm";
 
 const TrackSummary = (props) => {
-  const { track } = props;
+  const { track, setFormVisible, isFormVisible } = props;
 
   return (
     <div className="track-summary-container">
@@ -16,8 +16,18 @@ const TrackSummary = (props) => {
             <span style={{ color: "lightgreen" }}>{track.popularity}</span>
           </h2>
           <img className="track-image" src={track.image} alt="" />
-          <button className="my-button btn-open-form">Add comment</button>
-          <TrackCommentForm />
+          {isFormVisible ? (
+            <TrackCommentForm setFormVisible={setFormVisible} />
+          ) : (
+            <button
+              className="my-button btn-open-form"
+              onClick={() => {
+                setFormVisible(true);
+              }}
+            >
+              Add comment
+            </button>
+          )}
         </div>
       ) : null}
     </div>
@@ -27,12 +37,14 @@ const TrackSummary = (props) => {
 const mapStateToProps = (state) => {
   return {
     track: state.track.track,
+    isFormVisible: state.track.isFormVisible,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchData: () => dispatch(fetchData()),
+    setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
   };
 };
 
