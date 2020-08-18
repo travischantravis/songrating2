@@ -43,12 +43,11 @@ export const searchTracks = (accessToken, searchValue) => {
   const options = {
     headers: {
       Authorization: "Bearer " + accessToken,
-      // "BQBhgFPY42eOqfM-XqVFq27o0gW6EDNr23SDjwvp171CJfpSgF6sZvRTWsR28ZWcva5QpMKqnX7GzOK0500",
     },
     json: true,
   };
 
-  // Escape space
+  // Escape space characters
   const query = searchValue.replace(" ", "%20");
 
   return (dispatch) => {

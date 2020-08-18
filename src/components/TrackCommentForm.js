@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { setFormVisible } from "../redux/track/trackActions";
 
 const validationSchema = Yup.object().shape({
   rating: Yup.number()

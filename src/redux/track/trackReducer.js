@@ -2,6 +2,7 @@ import * as track from "./trackTypes";
 
 const initState = {
   track: {},
+  audioFeatures: {},
   loading: false,
   error: "",
   isFormVisible: false,
@@ -18,14 +19,14 @@ const trackReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        track: action.payload,
+        audioFeatures: action.payload,
         error: "",
       };
     case track.FETCH_DATA_FAILURE:
       return {
         ...state,
         loading: false,
-        track: {},
+        audioFeature: {},
         error: action.payload,
       };
     case track.SET_TRACK:

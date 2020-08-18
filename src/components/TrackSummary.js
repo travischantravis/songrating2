@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchData, setFormVisible } from "../redux/track/trackActions";
+import {
+  fetchAudioFeatures,
+  setFormVisible,
+} from "../redux/track/trackActions";
 import TrackCommentForm from "./TrackCommentForm";
 
 const TrackSummary = (props) => {
-  const { track, setFormVisible, isFormVisible } = props;
+  const {
+    track,
+    setFormVisible,
+    isFormVisible,
+    fetchAudioFeatures,
+    accessToken,
+  } = props;
+
+  useEffect(() => {
+    console.log(props);
+    // if (!_.isEmpty(accessToken)) fetchAudioFeatures(accessToken)
+    fetchAudioFeatures(accessToken);
+  }, []);
 
   return (
     <div className="track-summary-container">
@@ -38,12 +53,14 @@ const mapStateToProps = (state) => {
   return {
     track: state.track.track,
     isFormVisible: state.track.isFormVisible,
+    audioFeatures: state.track.audioFeatures,
+    accessToken: state.spotify.accessToken,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: () => dispatch(fetchData()),
+    fetchAudioFeatures: () => dispatch(fetchAudioFeatures()),
     setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
   };
 };

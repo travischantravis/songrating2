@@ -2,14 +2,23 @@ import axios from "axios";
 import * as track from "./trackTypes";
 
 // an action creator returns a function instead of an action
-export const fetchData = () => {
+export const fetchAudioFeatures = (accessToken) => {
+  const options = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+    json: true,
+  };
   return (dispatch) => {
     dispatch(fetchDataLoading());
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get(
+        `https://api.spotify.com/v1/audio-features/06AKEBrKUckW0KREUWRnvT`,
+        options
+      )
       .then((response) => {
-        const users = response.data;
-        dispatch(fetchDataSuccess(users));
+        const data = response.data;
+        dispatch(fetchDataSuccess(data));
       })
       .catch((error) => dispatch(fetchDataFailure(error)));
   };
