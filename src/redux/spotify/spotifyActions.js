@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import * as spotifyActions from "./spotifyTypes";
+import { getAuthState } from "../localStorage";
 
 const getAccessToken = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
@@ -69,6 +70,7 @@ export const searchTracks = (accessToken, searchValue) => {
 };
 
 export const getTracks = (searchValue) => (dispatch) => {
+  // TODO get access token from localStorage
   dispatch(getAccessToken()).then((accessToken) =>
     dispatch(searchTracks(accessToken, searchValue))
   );
