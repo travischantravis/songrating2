@@ -5,6 +5,22 @@ import { Search } from "semantic-ui-react";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
 import { setTrack } from "../redux/track/trackActions";
+import { Link } from "react-router-dom";
+
+const resultRenderer = (track) => {
+  const { trackid, title, artists, image } = track;
+  return (
+    <Link key={trackid} to={`/track/${trackid}`}>
+      <div className="image">
+        <img src={image} alt="" />
+      </div>
+      <div className="content">
+        <div className="title">{title}</div>
+        <div className="description">{artists}</div>
+      </div>
+    </Link>
+  );
+};
 
 const SearchBar = (props) => {
   const { getTracks, setTrack, tracks, loading } = props;
@@ -32,6 +48,7 @@ const SearchBar = (props) => {
             leading: true,
           }
         )}
+        resultRenderer={resultRenderer}
         results={tracks.map((track) => {
           const artistNames = track.artists
             .map((artist) => artist.name)
@@ -43,7 +60,7 @@ const SearchBar = (props) => {
             description: artistNames,
             title: track.name,
             image: track.album.images[0].url,
-            id: track.id,
+            trackid: track.id,
             popularity: track.popularity,
           };
         })}

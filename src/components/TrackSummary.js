@@ -19,7 +19,7 @@ const TrackSummary = (props) => {
   useEffect(() => {
     console.log(props);
     // if (!_.isEmpty(accessToken)) fetchAudioFeatures(accessToken)
-    fetchAudioFeatures(accessToken);
+    // fetchAudioFeatures(accessToken);
   }, []);
 
   return (
