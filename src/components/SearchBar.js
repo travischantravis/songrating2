@@ -25,8 +25,6 @@ const SearchBar = (props) => {
   const { getTracks, tracks, searchBarLoading } = props;
   const [input, setInput] = useState("");
 
-  console.log(props);
-
   return (
     <div className="searchBarContainer">
       <Search

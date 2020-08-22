@@ -5,7 +5,6 @@ const TrackSummary = (props) => {
   const artistNames =
     artists && artists.map((artist) => artist.name).join(", ");
 
-  console.log(props.track);
   return (
     <div className="track-summary-container">
       {name ? (

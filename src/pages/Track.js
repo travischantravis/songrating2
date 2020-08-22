@@ -7,12 +7,21 @@ import TrackCommentForm from "../components/TrackCommentForm";
 import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
 
 const Track = (props) => {
-  const { track, setFormVisible, isFormVisible, getSingleTrack } = props;
+  const {
+    track,
+    audioFeatures,
+    setFormVisible,
+    isFormVisible,
+    getSingleTrack,
+  } = props;
   const { id } = useParams();
 
   useEffect(() => {
     getSingleTrack(id);
   }, [id]);
+
+  console.log(track);
+  console.log(audioFeatures);
 
   return (
     <div>
@@ -36,6 +45,7 @@ const Track = (props) => {
 const mapStateToProps = (state) => {
   return {
     track: state.track.track,
+    audioFeatures: state.track.audioFeatures,
     isFormVisible: state.track.isFormVisible,
   };
 };
