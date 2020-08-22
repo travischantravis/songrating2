@@ -6,15 +6,15 @@ const TrackSummary = (props) => {
     artists && artists.map((artist) => artist.name).join(", ");
 
   return (
-    <div className="track-summary-container">
+    <div className="track-summary">
       {name ? (
-        <div>
+        <>
           <h2>
             {`${artistNames} - ${name} `}{" "}
             <span style={{ color: "lightgreen" }}>{popularity}</span>
           </h2>
           <img className="track-image" src={album.images[0].url} alt="" />
-        </div>
+        </>
       ) : null}
     </div>
   );

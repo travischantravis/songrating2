@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import TrackSummary from "../components/TrackSummary";
 import TrackCommentForm from "../components/TrackCommentForm";
 import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
+import TrackAudioFeatures from "../components/TrackAudioFeatures";
 
 const Track = (props) => {
   const {
@@ -20,12 +21,16 @@ const Track = (props) => {
     getSingleTrack(id);
   }, [id]);
 
-  console.log(track);
-  console.log(audioFeatures);
+  // console.log(track);
+  // console.log(audioFeatures);
 
   return (
     <div>
-      <TrackSummary track={track} />
+      <div className="track-info-container">
+        <TrackSummary track={track} />
+        <TrackAudioFeatures audioFeatures={audioFeatures} />
+      </div>
+
       {isFormVisible ? (
         <TrackCommentForm setFormVisible={setFormVisible} />
       ) : (

@@ -6,8 +6,7 @@
 
 /* Main */
 .main {
-  margin: 0 20px;
-  padding-top: 20px;
+  padding: 20px;
   min-height: 80vh;
 }
 
@@ -92,8 +91,8 @@ textarea {
   flex-direction: row;
   padding: 10px 20px;
   justify-content: space-between;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
 /* Search bar */
@@ -104,6 +103,15 @@ div.results {
 
 .searchBarContainer {
   margin-right: 30px;
+}
+
+/* Track Page */
+.track-info-container {
+  display: flex;
+}
+
+.track-summary {
+  max-width: 300px;
 }
 
 /* Track Summary */

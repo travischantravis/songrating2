@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Search } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
-import { Link } from "react-router-dom";
 
 const resultRenderer = (track) => {
   const { trackid, title, artists, image } = track;
