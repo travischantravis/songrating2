@@ -2,6 +2,7 @@ import * as spotifyActions from "./spotifyTypes";
 
 const initState = {
   loading: false,
+  searchBarLoading: false,
   accessToken: {},
   error: "",
   tracks: [],
@@ -33,11 +34,14 @@ const spotifyReducer = (state = initState, action) => {
       return {
         ...state,
         loading: true,
+        searchBarLoading: true,
       };
     case spotifyActions.FETCH_TRACKS_SUCCESS:
       return {
         ...state,
         loading: false,
+        searchBarLoading: false,
+
         tracks: action.payload,
         error: "",
       };
@@ -45,6 +49,7 @@ const spotifyReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
+        searchBarLoading: false,
         tracks: [],
         error: action.payload,
       };

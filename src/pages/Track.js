@@ -1,12 +1,50 @@
-import React from "react";
-import TrackSummary from "../components/TrackSummary";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const Track = () => {
+import TrackSummary from "../components/TrackSummary";
+import TrackCommentForm from "../components/TrackCommentForm";
+import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
+
+const Track = (props) => {
+  const { track, setFormVisible, isFormVisible, getSingleTrack } = props;
+  const { id } = useParams();
+
+  useEffect(() => {
+    getSingleTrack(id);
+  }, [id]);
+
   return (
     <div>
-      <TrackSummary />
+      <TrackSummary track={track} />
+      {isFormVisible ? (
+        <TrackCommentForm setFormVisible={setFormVisible} />
+      ) : (
+        <button
+          className="my-button btn-open-form"
+          onClick={() => {
+            setFormVisible(true);
+          }}
+        >
+          Add comment
+        </button>
+      )}
     </div>
   );
 };
 
-export default Track;
+const mapStateToProps = (state) => {
+  return {
+    track: state.track.track,
+    isFormVisible: state.track.isFormVisible,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
+    getSingleTrack: (id) => dispatch(getSingleTrack(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Track);

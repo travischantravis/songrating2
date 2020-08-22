@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Search } from "semantic-ui-react";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
-import { setTrack } from "../redux/track/trackActions";
 import { Link } from "react-router-dom";
 
 const resultRenderer = (track) => {
@@ -23,7 +22,7 @@ const resultRenderer = (track) => {
 };
 
 const SearchBar = (props) => {
-  const { getTracks, setTrack, tracks, loading } = props;
+  const { getTracks, tracks, searchBarLoading } = props;
   const [input, setInput] = useState("");
 
   console.log(props);
@@ -31,11 +30,10 @@ const SearchBar = (props) => {
   return (
     <div className="searchBarContainer">
       <Search
-        loading={loading}
+        loading={searchBarLoading}
         onResultSelect={(e, { result }) => {
           e.preventDefault();
           setInput(result.title);
-          setTrack(result);
         }}
         onSearchChange={_.debounce(
           (e, props) => {
@@ -74,7 +72,7 @@ const SearchBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.spotify.loading,
+    searchBarLoading: state.spotify.searchBarLoading,
     tracks: state.spotify.tracks,
   };
 };
@@ -82,7 +80,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTracks: (searchValue) => dispatch(getTracks(searchValue)),
-    setTrack: (track) => dispatch(setTrack(track)),
   };
 };
 

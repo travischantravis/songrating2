@@ -1,68 +1,24 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-
-import {
-  fetchAudioFeatures,
-  setFormVisible,
-} from "../redux/track/trackActions";
-import TrackCommentForm from "./TrackCommentForm";
+import React from "react";
 
 const TrackSummary = (props) => {
-  const {
-    track,
-    setFormVisible,
-    isFormVisible,
-    fetchAudioFeatures,
-    accessToken,
-  } = props;
+  const { artists, name, popularity, album } = props.track;
+  const artistNames =
+    artists && artists.map((artist) => artist.name).join(", ");
 
-  useEffect(() => {
-    console.log(props);
-    // if (!_.isEmpty(accessToken)) fetchAudioFeatures(accessToken)
-    // fetchAudioFeatures(accessToken);
-  }, []);
-
+  console.log(props.track);
   return (
     <div className="track-summary-container">
-      {track.title ? (
+      {name ? (
         <div>
           <h2>
-            {`${track.artists} - ${track.title} `}{" "}
-            <span style={{ color: "lightgreen" }}>{track.popularity}</span>
+            {`${artistNames} - ${name} `}{" "}
+            <span style={{ color: "lightgreen" }}>{popularity}</span>
           </h2>
-          <img className="track-image" src={track.image} alt="" />
-          {isFormVisible ? (
-            <TrackCommentForm setFormVisible={setFormVisible} />
-          ) : (
-            <button
-              className="my-button btn-open-form"
-              onClick={() => {
-                setFormVisible(true);
-              }}
-            >
-              Add comment
-            </button>
-          )}
+          <img className="track-image" src={album.images[0].url} alt="" />
         </div>
       ) : null}
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    track: state.track.track,
-    isFormVisible: state.track.isFormVisible,
-    audioFeatures: state.track.audioFeatures,
-    accessToken: state.spotify.accessToken,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchAudioFeatures: () => dispatch(fetchAudioFeatures()),
-    setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TrackSummary);
+export default TrackSummary;

@@ -1,14 +1,19 @@
 import axios from "axios";
 import * as track from "./trackTypes";
+import { getAccessToken } from "../spotify/spotifyActions";
 
-// an action creator returns a function instead of an action
-export const fetchAudioFeatures = (accessToken) => {
-  const options = {
+const getOptions = (accessToken) => {
+  return {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
     json: true,
   };
+};
+
+// an action creator returns a function instead of an action
+const fetchAudioFeatures = (accessToken) => {
+  const options = getOptions(accessToken);
   return (dispatch) => {
     dispatch(fetchDataLoading());
     axios
@@ -24,10 +29,25 @@ export const fetchAudioFeatures = (accessToken) => {
   };
 };
 
-export const setTrack = (data) => ({
-  type: track.SET_TRACK,
-  payload: data,
-});
+const fetchSingleTrack = (accessToken, id) => {
+  const options = getOptions(accessToken);
+  return (dispatch) => {
+    dispatch(fetchDataLoading());
+    axios
+      .get(`https://api.spotify.com/v1/tracks/${id}`, options)
+      .then((response) => {
+        const data = response.data;
+        dispatch(fetchDataSuccess(data));
+      })
+      .catch((error) => dispatch(fetchDataFailure(error)));
+  };
+};
+
+export const getSingleTrack = (id) => (dispatch) => {
+  dispatch(getAccessToken()).then((accessToken) =>
+    dispatch(fetchSingleTrack(accessToken, id))
+  );
+};
 
 export const setFormVisible = (data) => ({
   type: track.SET_FORM_VISIBLE,

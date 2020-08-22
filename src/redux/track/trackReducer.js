@@ -19,20 +19,15 @@ const trackReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        audioFeatures: action.payload,
+        track: action.payload,
         error: "",
       };
     case track.FETCH_DATA_FAILURE:
       return {
         ...state,
         loading: false,
-        audioFeature: {},
+        track: {},
         error: action.payload,
-      };
-    case track.SET_TRACK:
-      return {
-        ...state,
-        track: action.payload,
       };
     case track.SET_FORM_VISIBLE:
       return {

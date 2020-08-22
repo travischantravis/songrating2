@@ -1,9 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 import * as spotifyActions from "./spotifyTypes";
-import { getAuthState } from "../localStorage";
 
-const getAccessToken = () => {
+export const getAccessToken = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 
@@ -40,7 +39,7 @@ const getAccessToken = () => {
   };
 };
 
-export const searchTracks = (accessToken, searchValue) => {
+const searchTracks = (accessToken, searchValue) => {
   const options = {
     headers: {
       Authorization: "Bearer " + accessToken,
