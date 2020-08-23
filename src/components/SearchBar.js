@@ -15,15 +15,18 @@ const SearchBar = (props) => {
     <div className="searchBarContainer">
       <Search
         loading={searchBarLoading}
-        onResultSelect={(e, { result }) => {
-          e.preventDefault();
-          setInput(result.title);
-        }}
+        // onResultSelect={(e, { result }) => {
+        //   e.preventDefault();
+        //   setInput(result.title);
+        // }}
         onSearchChange={_.debounce(
           (e, props) => {
             const { value } = props;
+
             setInput(value);
-            if (value) getTracks(value);
+            if (value) {
+              getTracks(value);
+            }
           },
           500,
           {
@@ -36,7 +39,10 @@ const SearchBar = (props) => {
             <Link
               key={trackid}
               to={`/track/${trackid}`}
-              onClick={() => setFormVisible(false)}
+              onClick={() => {
+                setFormVisible(false);
+                setInput(title);
+              }}
             >
               <div className="image">
                 <img src={image} alt="" />
@@ -61,6 +67,7 @@ const SearchBar = (props) => {
             image: track.album.images[0].url,
             trackid: track.id,
             popularity: track.popularity,
+            key: track.id,
           };
         })}
         value={input}

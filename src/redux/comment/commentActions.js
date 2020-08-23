@@ -56,7 +56,7 @@ export const getComment = (id) => {
           payload: err,
         });
       } else {
-        console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+        // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
 
         dispatch({
           type: comment.GET_COMMENT_SUCCESS,

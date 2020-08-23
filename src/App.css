@@ -106,22 +106,30 @@ div.results {
 }
 
 /* Track Page */
-.track-info-container {
+/* .track-info-container {
   display: flex;
-}
+} */
 
 .track-summary {
   max-width: 300px;
 }
 
 /* Track Summary */
-.track-image {
+.track-image-container {
   max-width: 200px;
+}
+.track-image {
+  width: 100%;
   display: block;
   margin-bottom: 10px;
 }
 
 /* Track Audio Chart */
+.audio-feature {
+  max-width: 250px;
+  /* temp fix */
+  transform: translate(-20px, 0);
+}
 .VictoryContainer > svg {
   overflow: visible;
 }
@@ -135,7 +143,7 @@ div.results {
 #trackCommentForm {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  max-width: 300px;
 }
 
 #trackCommentForm div {

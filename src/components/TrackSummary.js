@@ -13,7 +13,9 @@ const TrackSummary = (props) => {
             {`${artistNames} - ${name} `}{" "}
             <span style={{ color: "lightgreen" }}>{popularity}</span>
           </h2>
-          <img className="track-image" src={album.images[0].url} alt="" />
+          <div className="track-image-container">
+            <img className="track-image" src={album.images[0].url} alt="" />
+          </div>
         </>
       ) : null}
     </div>

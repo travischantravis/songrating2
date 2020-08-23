@@ -26,10 +26,11 @@ const TrackCommentForm = (props) => {
     getComment,
   } = props;
 
-  console.log(isCommented);
+  // console.log(isCommented);
 
   return (
-    <>
+    <div>
+      <h3>Track Comment</h3>
       {isFormVisible ? (
         <Formik
           initialValues={{
@@ -125,7 +126,7 @@ const TrackCommentForm = (props) => {
           Add comment
         </button>
       )}
-    </>
+    </div>
   );
 };
 

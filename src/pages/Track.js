@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Grid } from "semantic-ui-react";
 
 import TrackSummary from "../components/TrackSummary";
 import TrackCommentForm from "../components/TrackCommentForm";
@@ -36,20 +37,24 @@ const Track = (props) => {
   return (
     <div>
       {fetchError === "" ? (
-        <>
-          <div className="track-info-container">
+        <Grid stackable centered>
+          <Grid.Column width={4}>
             <TrackSummary track={track} />
             <TrackAudioFeatures audioFeatures={audioFeatures} />
-          </div>
-          <TrackCommentForm
-            setFormVisible={setFormVisible}
-            setNewComment={setNewComment}
-            postNewComment={postNewComment}
-            getComment={getComment}
-          />
-        </>
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <TrackCommentForm
+              setFormVisible={setFormVisible}
+              setNewComment={setNewComment}
+              postNewComment={postNewComment}
+              getComment={getComment}
+            />
+          </Grid.Column>
+        </Grid>
       ) : (
-        <div>Track not available</div>
+        <div>
+          <h2>Track not available</h2>
+        </div>
       )}
     </div>
   );
