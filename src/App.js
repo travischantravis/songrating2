@@ -8,7 +8,6 @@ import NavBar from "./components/NavBar";
 import Main from "./components/Main";
 
 import myAWS from "./config/DynamoDB";
-
 const docClient = new myAWS.DynamoDB.DocumentClient();
 
 const onRead = () => {
@@ -26,7 +25,7 @@ const onRead = () => {
 };
 
 function App() {
-  onRead();
+  // onRead();
 
   return (
     <Provider store={store}>

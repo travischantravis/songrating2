@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 
 import TrackSummary from "../components/TrackSummary";
 import TrackCommentForm from "../components/TrackCommentForm";
-import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
 import TrackAudioFeatures from "../components/TrackAudioFeatures";
+import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
+import { setNewComment, postNewComment } from "../redux/comment/commentActions";
 
 const Track = (props) => {
   const {
@@ -14,6 +15,8 @@ const Track = (props) => {
     setFormVisible,
     isFormVisible,
     getSingleTrack,
+    setNewComment,
+    postNewComment,
   } = props;
   const { id } = useParams();
 
@@ -32,7 +35,11 @@ const Track = (props) => {
       </div>
 
       {isFormVisible ? (
-        <TrackCommentForm setFormVisible={setFormVisible} />
+        <TrackCommentForm
+          setFormVisible={setFormVisible}
+          setNewComment={setNewComment}
+          postNewComment={postNewComment}
+        />
       ) : (
         <button
           className="my-button btn-open-form"
@@ -59,6 +66,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
     getSingleTrack: (id) => dispatch(getSingleTrack(id)),
+    setNewComment: (comment) => dispatch(setNewComment(comment)),
+    postNewComment: (comment) => dispatch(postNewComment(comment)),
   };
 };
 

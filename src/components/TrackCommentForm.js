@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { connect } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   rating: Yup.number()
@@ -13,19 +14,35 @@ const validationSchema = Yup.object().shape({
   isFav: Yup.boolean().label("Checkbox"),
 });
 
-const handleFormSubmit = (values, actions) => {
-  setTimeout(() => {
-    alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
-  }, 500);
-};
-
 const TrackCommentForm = (props) => {
+  const {
+    loading,
+    newComment,
+    track,
+    setFormVisible,
+    setNewComment,
+    postNewComment,
+  } = props;
+
+  console.log(loading, newComment);
   return (
     <Formik
-      initialValues={{ rating: "", comment: "", isFav: false }}
+      initialValues={{
+        id: track.id,
+        name: track.name,
+        rating: "",
+        comment: "",
+        isFav: false,
+      }}
       validationSchema={validationSchema}
-      onSubmit={handleFormSubmit}
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          setNewComment(values);
+          postNewComment(values);
+          // alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 500);
+      }}
     >
       {(formikProps) => {
         const { touched, errors } = formikProps;
@@ -70,13 +87,13 @@ const TrackCommentForm = (props) => {
                 className="my-button btn-cancel-form"
                 type="button"
                 onClick={() => {
-                  props.setFormVisible(false);
+                  setFormVisible(false);
                 }}
                 disabled={formikProps.isSubmitting}
               >
                 Cancel
               </button>
-              <pre>{JSON.stringify(formikProps, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(formikProps, null, 2)}</pre> */}
             </div>
           </Form>
         );
@@ -85,4 +102,12 @@ const TrackCommentForm = (props) => {
   );
 };
 
-export default TrackCommentForm;
+const mapStateToProps = (state) => {
+  return {
+    track: state.track.track,
+    newComment: state.comment.newComment,
+    loading: state.comment.loading,
+  };
+};
+
+export default connect(mapStateToProps)(TrackCommentForm);
