@@ -25,20 +25,31 @@ const TrackCommentForm = (props) => {
     postNewComment,
     getComment,
   } = props;
+  const artistNames =
+    track.artists && track.artists.map((artist) => artist.name).join(", ");
 
   // console.log(isCommented);
+  // console.log(track);
 
   return (
     <div>
       <h3>Track Comment</h3>
+      {isCommented && !isFormVisible ? (
+        <div className="track-comment">
+          <p>Rating: {curComment.rating}/10</p>
+          <p>Comment: {curComment.comment}</p>
+          <p>Favorite? {curComment.isFav ? "Yes" : "No"}</p>
+        </div>
+      ) : null}
       {isFormVisible ? (
         <Formik
           initialValues={{
             id: track.id,
             name: track.name,
-            rating: "",
-            comment: "",
-            isFav: false,
+            artists: artistNames,
+            rating: isCommented ? curComment.rating : "",
+            comment: isCommented ? curComment.comment : "",
+            isFav: isCommented ? curComment.isFav : false,
             createdAt: isCommented
               ? curComment.createdAt
               : new Date().toISOString(),
@@ -98,7 +109,7 @@ const TrackCommentForm = (props) => {
                     type="submit"
                     disabled={formikProps.isSubmitting}
                   >
-                    Add
+                    {isCommented ? "Edit" : "Add"}
                   </button>
                   <button
                     className="my-button btn-cancel-form"
@@ -123,7 +134,7 @@ const TrackCommentForm = (props) => {
             setFormVisible(true);
           }}
         >
-          Add comment
+          <p>{isCommented ? "Edit" : "Add"} Comment</p>
         </button>
       )}
     </div>

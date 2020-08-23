@@ -41,12 +41,12 @@ button:focus {
 
 .btn-primary {
   color: #fff;
-  background-color: #2ea44f;
+  background-color: #5ad85a;
   border-color: rgba(27, 31, 35, 0.15);
 }
 
 .btn-primary:hover {
-  background-color: #2c974b;
+  background-color: #4cd033;
 }
 
 /* Link */
@@ -106,10 +106,6 @@ div.results {
 }
 
 /* Track Page */
-/* .track-info-container {
-  display: flex;
-} */
-
 .track-summary {
   max-width: 300px;
 }
@@ -135,6 +131,9 @@ div.results {
 }
 
 /* Track Comment Form  */
+.track-comment {
+  margin-bottom: 10px;
+}
 .btn-open-form {
   display: block;
   user-select: none;
