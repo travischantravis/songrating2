@@ -15,9 +15,11 @@ import {
 const Track = (props) => {
   const {
     track,
+    fetchError,
     audioFeatures,
+    curComment,
+    isCommented,
     setFormVisible,
-    isFormVisible,
     getSingleTrack,
     setNewComment,
     postNewComment,
@@ -27,31 +29,27 @@ const Track = (props) => {
 
   useEffect(() => {
     getSingleTrack(id);
+    getComment(id);
   }, [id]);
 
+  // console.log(curComment);
   return (
     <div>
-      <div className="track-info-container">
-        <TrackSummary track={track} />
-        <TrackAudioFeatures audioFeatures={audioFeatures} />
-      </div>
-
-      {isFormVisible ? (
-        <TrackCommentForm
-          setFormVisible={setFormVisible}
-          setNewComment={setNewComment}
-          postNewComment={postNewComment}
-          getComment={getComment}
-        />
+      {fetchError === "" ? (
+        <>
+          <div className="track-info-container">
+            <TrackSummary track={track} />
+            <TrackAudioFeatures audioFeatures={audioFeatures} />
+          </div>
+          <TrackCommentForm
+            setFormVisible={setFormVisible}
+            setNewComment={setNewComment}
+            postNewComment={postNewComment}
+            getComment={getComment}
+          />
+        </>
       ) : (
-        <button
-          className="my-button btn-open-form"
-          onClick={() => {
-            setFormVisible(true);
-          }}
-        >
-          Add comment
-        </button>
+        <div>Track not available</div>
       )}
     </div>
   );
@@ -60,8 +58,10 @@ const Track = (props) => {
 const mapStateToProps = (state) => {
   return {
     track: state.track.track,
+    fetchError: state.track.error,
     audioFeatures: state.track.audioFeatures,
-    isFormVisible: state.track.isFormVisible,
+    curComment: state.comment.curComment,
+    isCommented: state.comment.isCommented,
   };
 };
 

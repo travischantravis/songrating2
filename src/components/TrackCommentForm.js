@@ -16,101 +16,125 @@ const validationSchema = Yup.object().shape({
 
 const TrackCommentForm = (props) => {
   const {
-    postLoading,
     curComment,
     track,
+    isCommented,
+    isFormVisible,
     setFormVisible,
     setNewComment,
     postNewComment,
     getComment,
   } = props;
 
-  console.log(postLoading, curComment);
+  console.log(isCommented);
 
-  useEffect(() => {
-    getComment(track.id);
-  }, []);
   return (
-    <Formik
-      initialValues={{
-        id: track.id,
-        name: track.name,
-        rating: "",
-        comment: "",
-        isFav: false,
-      }}
-      validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          setNewComment(values);
-          postNewComment(values);
-          actions.setSubmitting(false);
-        }, 500);
-      }}
-    >
-      {(formikProps) => {
-        const { touched, errors } = formikProps;
-        return (
-          <Form id="trackCommentForm">
-            <div>
-              <Field
-                type="text"
-                name="rating"
-                className="form-control"
-                placeholder="Rating [0-10]"
-              />
-              {errors.rating && touched.rating ? (
-                <p className="error-msg">{errors.rating}</p>
-              ) : null}
-            </div>
-            <div>
-              <Field
-                as="textarea"
-                className="form-control"
-                placeholder="Comment"
-                name="comment"
-              />
-              {errors.comment && touched.comment ? (
-                <p className="error-msg">{errors.comment}</p>
-              ) : null}
-            </div>
-            <div>
-              <Field type="checkbox" name="isFav" className="form-checkbox" />
-              <span className="checkbox-label">Favorite song?</span>
-            </div>
+    <>
+      {isFormVisible ? (
+        <Formik
+          initialValues={{
+            id: track.id,
+            name: track.name,
+            rating: "",
+            comment: "",
+            isFav: false,
+            createdAt: isCommented
+              ? curComment.createdAt
+              : new Date().toISOString(),
+            lastEdited: new Date().toISOString(),
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, actions) => {
+            setTimeout(() => {
+              values.createdAt = isCommented
+                ? curComment.createdAt
+                : new Date().toISOString();
+              values.lastEdited = new Date().toISOString();
+              setNewComment(values);
+              postNewComment(values);
+              actions.setSubmitting(false);
+            }, 500);
+          }}
+        >
+          {(formikProps) => {
+            const { touched, errors } = formikProps;
+            return (
+              <Form id="trackCommentForm">
+                <div>
+                  <Field
+                    type="text"
+                    name="rating"
+                    className="form-control"
+                    placeholder="Rating [0-10]"
+                  />
+                  {errors.rating && touched.rating ? (
+                    <p className="error-msg">{errors.rating}</p>
+                  ) : null}
+                </div>
+                <div>
+                  <Field
+                    as="textarea"
+                    className="form-control"
+                    placeholder="Comment"
+                    name="comment"
+                  />
+                  {errors.comment && touched.comment ? (
+                    <p className="error-msg">{errors.comment}</p>
+                  ) : null}
+                </div>
+                <div>
+                  <Field
+                    type="checkbox"
+                    name="isFav"
+                    className="form-checkbox"
+                  />
+                  <span className="checkbox-label">Favorite song?</span>
+                </div>
 
-            <div>
-              <button
-                className="my-button btn-primary"
-                type="submit"
-                disabled={formikProps.isSubmitting}
-              >
-                Add
-              </button>
-              <button
-                className="my-button btn-cancel-form"
-                type="button"
-                onClick={() => {
-                  setFormVisible(false);
-                }}
-                disabled={formikProps.isSubmitting}
-              >
-                Cancel
-              </button>
-              {/* <pre>{JSON.stringify(formikProps, null, 2)}</pre> */}
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
+                <div>
+                  <button
+                    className="my-button btn-primary"
+                    type="submit"
+                    disabled={formikProps.isSubmitting}
+                  >
+                    Add
+                  </button>
+                  <button
+                    className="my-button btn-cancel-form"
+                    type="button"
+                    onClick={() => {
+                      setFormVisible(false);
+                    }}
+                    disabled={formikProps.isSubmitting}
+                  >
+                    Cancel
+                  </button>
+                  {/* <pre>{JSON.stringify(formikProps, null, 2)}</pre> */}
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      ) : (
+        <button
+          className="my-button btn-open-form"
+          onClick={() => {
+            setFormVisible(true);
+          }}
+        >
+          Add comment
+        </button>
+      )}
+    </>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
     track: state.track.track,
+    isFormVisible: state.track.isFormVisible,
     curComment: state.comment.curComment,
-    postLoading: state.comment.postLoading,
+    isCommented: state.comment.isCommented,
   };
 };
 

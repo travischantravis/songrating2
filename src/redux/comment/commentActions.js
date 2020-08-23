@@ -60,7 +60,7 @@ export const getComment = (id) => {
 
         dispatch({
           type: comment.GET_COMMENT_SUCCESS,
-          payload: data,
+          payload: data.Item,
         });
       }
     });

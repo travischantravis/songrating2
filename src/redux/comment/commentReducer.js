@@ -1,8 +1,10 @@
 import * as comment from "./commentTypes";
+import _ from "lodash";
 
 const initState = {
   postLoading: false,
   getLoading: false,
+  isCommented: false,
   curComment: {},
   error: "",
 };
@@ -23,6 +25,7 @@ const commentReducer = (state = initState, action) => {
       return {
         ...state,
         postLoading: false,
+        isCommented: true,
         error: "",
       };
     case comment.GET_COMMENT_LOADING:
@@ -34,6 +37,7 @@ const commentReducer = (state = initState, action) => {
       return {
         ...state,
         getLoading: false,
+        isCommented: !_.isEmpty(action.payload),
         curComment: action.payload,
         error: "",
       };
