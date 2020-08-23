@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -16,15 +16,20 @@ const validationSchema = Yup.object().shape({
 
 const TrackCommentForm = (props) => {
   const {
-    loading,
-    newComment,
+    postLoading,
+    curComment,
     track,
     setFormVisible,
     setNewComment,
     postNewComment,
+    getComment,
   } = props;
 
-  console.log(loading, newComment);
+  console.log(postLoading, curComment);
+
+  useEffect(() => {
+    getComment(track.id);
+  }, []);
   return (
     <Formik
       initialValues={{
@@ -39,7 +44,6 @@ const TrackCommentForm = (props) => {
         setTimeout(() => {
           setNewComment(values);
           postNewComment(values);
-          // alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 500);
       }}
@@ -105,8 +109,8 @@ const TrackCommentForm = (props) => {
 const mapStateToProps = (state) => {
   return {
     track: state.track.track,
-    newComment: state.comment.newComment,
-    loading: state.comment.loading,
+    curComment: state.comment.curComment,
+    postLoading: state.comment.postLoading,
   };
 };
 

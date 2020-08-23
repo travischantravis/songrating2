@@ -1,8 +1,9 @@
 import * as comment from "./commentTypes";
 
 const initState = {
-  loading: false,
-  newComment: {},
+  postLoading: false,
+  getLoading: false,
+  curComment: {},
   error: "",
 };
 
@@ -11,25 +12,37 @@ const commentReducer = (state = initState, action) => {
     case comment.SET_NEW_COMMENT:
       return {
         ...state,
-        newComment: action.payload,
+        curComment: action.payload,
       };
     case comment.POST_NEW_COMMENT_LOADING:
       return {
         ...state,
-        loading: true,
+        postLoading: true,
       };
     case comment.POST_NEW_COMMENT_SUCCESS:
       return {
         ...state,
-        loading: false,
-        newComment: action.payload,
+        postLoading: false,
         error: "",
       };
-    case comment.POST_NEW_COMMENT_FAILURE:
+    case comment.GET_COMMENT_LOADING:
       return {
         ...state,
-        loading: false,
-        newComment: {},
+        getLoading: true,
+      };
+    case comment.GET_COMMENT_SUCCESS:
+      return {
+        ...state,
+        getLoading: false,
+        curComment: action.payload,
+        error: "",
+      };
+    case comment.PROCESS_COMMENT_FAILURE:
+      return {
+        ...state,
+        postLoading: false,
+        getLoading: false,
+        curComment: {},
         error: action.payload,
       };
     default:

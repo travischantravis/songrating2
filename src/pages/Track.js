@@ -6,7 +6,11 @@ import TrackSummary from "../components/TrackSummary";
 import TrackCommentForm from "../components/TrackCommentForm";
 import TrackAudioFeatures from "../components/TrackAudioFeatures";
 import { setFormVisible, getSingleTrack } from "../redux/track/trackActions";
-import { setNewComment, postNewComment } from "../redux/comment/commentActions";
+import {
+  setNewComment,
+  postNewComment,
+  getComment,
+} from "../redux/comment/commentActions";
 
 const Track = (props) => {
   const {
@@ -17,15 +21,13 @@ const Track = (props) => {
     getSingleTrack,
     setNewComment,
     postNewComment,
+    getComment,
   } = props;
   const { id } = useParams();
 
   useEffect(() => {
     getSingleTrack(id);
   }, [id]);
-
-  // console.log(track);
-  // console.log(audioFeatures);
 
   return (
     <div>
@@ -39,6 +41,7 @@ const Track = (props) => {
           setFormVisible={setFormVisible}
           setNewComment={setNewComment}
           postNewComment={postNewComment}
+          getComment={getComment}
         />
       ) : (
         <button
@@ -68,6 +71,7 @@ const mapDispatchToProps = (dispatch) => {
     getSingleTrack: (id) => dispatch(getSingleTrack(id)),
     setNewComment: (comment) => dispatch(setNewComment(comment)),
     postNewComment: (comment) => dispatch(postNewComment(comment)),
+    getComment: (id) => dispatch(getComment(id)),
   };
 };
 
