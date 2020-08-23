@@ -5,24 +5,10 @@ import { Search } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { getTracks } from "../redux/spotify/spotifyActions";
-
-const resultRenderer = (track) => {
-  const { trackid, title, artists, image } = track;
-  return (
-    <Link key={trackid} to={`/track/${trackid}`}>
-      <div className="image">
-        <img src={image} alt="" />
-      </div>
-      <div className="content">
-        <div className="title">{title}</div>
-        <div className="description">{artists}</div>
-      </div>
-    </Link>
-  );
-};
+import { setFormVisible } from "../redux/track/trackActions";
 
 const SearchBar = (props) => {
-  const { getTracks, tracks, searchBarLoading } = props;
+  const { getTracks, tracks, searchBarLoading, setFormVisible } = props;
   const [input, setInput] = useState("");
 
   return (
@@ -44,7 +30,24 @@ const SearchBar = (props) => {
             leading: true,
           }
         )}
-        resultRenderer={resultRenderer}
+        resultRenderer={(track) => {
+          const { trackid, title, artists, image } = track;
+          return (
+            <Link
+              key={trackid}
+              to={`/track/${trackid}`}
+              onClick={() => setFormVisible(false)}
+            >
+              <div className="image">
+                <img src={image} alt="" />
+              </div>
+              <div className="content">
+                <div className="title">{title}</div>
+                <div className="description">{artists}</div>
+              </div>
+            </Link>
+          );
+        }}
         results={tracks.map((track) => {
           const artistNames = track.artists
             .map((artist) => artist.name)
@@ -78,6 +81,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTracks: (searchValue) => dispatch(getTracks(searchValue)),
+    setFormVisible: (isVisible) => dispatch(setFormVisible(isVisible)),
   };
 };
 
