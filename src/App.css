@@ -121,6 +121,11 @@ div.results {
   margin-bottom: 10px;
 }
 
+/* Track Audio Chart */
+.VictoryContainer > svg {
+  overflow: visible;
+}
+
 /* Track Comment Form  */
 .btn-open-form {
   display: block;

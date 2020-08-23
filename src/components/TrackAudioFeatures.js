@@ -1,5 +1,6 @@
 import React from "react";
-import { VictoryChart, VictoryBar, VictoryLegend } from "victory";
+import { VictoryChart, VictoryBar, VictoryAxis } from "victory";
+import chroma from "chroma-js";
 
 const features = [
   "acousticness",
@@ -13,6 +14,8 @@ const features = [
 ];
 
 const legendFeatures = features.map((feature) => ({ name: feature }));
+
+const colorScale = chroma.scale(["red", "green", "lightgreen"]).mode("lrgb");
 
 const processFeatures = (raw) => {
   let filtered = Object.keys(raw)
@@ -45,15 +48,35 @@ const TrackAudioFeatures = (props) => {
   const { audioFeatures } = props;
 
   let filtered = processFeatures(audioFeatures);
-  console.log(audioFeatures);
-  console.log(filtered);
-  console.log(legendFeatures);
 
   return (
     <div className="audio-feature">
-      <VictoryChart height={220} width={350} domainPadding={10}>
-        <VictoryBar data={filtered} x={0} y={1} barWidth={20} />
-        <VictoryLegend orientation="vertical" data={legendFeatures} y={200} />
+      <VictoryChart height={250} width={350} domainPadding={10}>
+        <VictoryBar
+          data={filtered}
+          x={0}
+          y={1}
+          barWidth={20}
+          style={{
+            data: {
+              fill: (d) => {
+                const yData = d.datum["1"];
+                return colorScale(yData);
+              },
+            },
+          }}
+        />
+        <VictoryAxis
+          style={{
+            tickLabels: {
+              padding: 1,
+              angle: 70,
+              verticalAnchor: "start",
+              textAnchor: "start",
+            },
+          }}
+        />
+        <VictoryAxis dependentAxis />
       </VictoryChart>
     </div>
   );
