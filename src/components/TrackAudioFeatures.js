@@ -13,9 +13,7 @@ const features = [
   "valence",
 ];
 
-const legendFeatures = features.map((feature) => ({ name: feature }));
-
-const colorScale = chroma.scale(["red", "green", "lightgreen"]).mode("lrgb");
+const colorScale = chroma.scale(["yellow", "lightgreen"]).mode("lrgb");
 
 const processFeatures = (raw) => {
   let filtered = Object.keys(raw)
