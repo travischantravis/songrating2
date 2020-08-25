@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -23,13 +23,9 @@ const TrackCommentForm = (props) => {
     setFormVisible,
     setNewComment,
     postNewComment,
-    getComment,
   } = props;
   const artistNames =
     track.artists && track.artists.map((artist) => artist.name).join(", ");
-
-  // console.log(isCommented);
-  // console.log(track);
 
   return (
     <div>
@@ -47,6 +43,7 @@ const TrackCommentForm = (props) => {
             id: track.id,
             name: track.name,
             artists: artistNames,
+            hotKey: "all",
             rating: isCommented ? curComment.rating : "",
             comment: isCommented ? curComment.comment : "",
             isFav: isCommented ? curComment.isFav : false,
@@ -64,6 +61,7 @@ const TrackCommentForm = (props) => {
               values.lastEdited = new Date().toISOString();
               setNewComment(values);
               postNewComment(values);
+              setFormVisible(false);
               actions.setSubmitting(false);
             }, 500);
           }}

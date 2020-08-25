@@ -56,11 +56,46 @@ export const getComment = (id) => {
           payload: err,
         });
       } else {
-        // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-
         dispatch({
           type: comment.GET_COMMENT_SUCCESS,
           payload: data.Item,
+        });
+      }
+    });
+  };
+};
+
+export const queryLatestComments = (date) => {
+  const params = {
+    TableName: "comments",
+    IndexName: "queryByLastEdited",
+    KeyConditionExpression: "#hotKey = :hotKey",
+    ExpressionAttributeNames: {
+      "#hotKey": "hotKey",
+    },
+    ExpressionAttributeValues: {
+      ":hotKey": "all",
+    },
+    Limit: 5,
+    ScanIndexForward: false,
+  };
+
+  return (dispatch) => {
+    dispatch(getCommentLoading());
+    docClient.query(params, (err, data) => {
+      if (err) {
+        console.error(
+          "Unable to get item. Error JSON:",
+          JSON.stringify(err, null, 2)
+        );
+        dispatch({
+          type: comment.PROCESS_COMMENT_FAILURE,
+          payload: err,
+        });
+      } else {
+        dispatch({
+          type: comment.QUERY_LATEST_COMMENTS_SUCCESS,
+          payload: data.Items,
         });
       }
     });

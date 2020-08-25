@@ -1,13 +1,30 @@
 import React from "react";
-import "../styles/Home.css";
-import LatestReviews from "../components/LatestReviews";
+import { connect } from "react-redux";
 
-const Home = () => {
+import "../styles/Home.css";
+import LatestComments from "../components/LatestComments";
+import { queryLatestComments } from "../redux/comment/commentActions";
+
+const Home = (props) => {
+  const { queryLatestComments } = props;
+
   return (
     <div className="dashboard">
-      <LatestReviews />
+      <LatestComments queryLatestComments={queryLatestComments} />
     </div>
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    latestComments: state.comment.latestComments, //unused
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    queryLatestComments: (date) => dispatch(queryLatestComments(date)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

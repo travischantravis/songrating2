@@ -18,8 +18,6 @@ const Track = (props) => {
     track,
     fetchError,
     audioFeatures,
-    curComment,
-    isCommented,
     setFormVisible,
     getSingleTrack,
     setNewComment,
@@ -33,7 +31,6 @@ const Track = (props) => {
     getComment(id);
   }, [id]);
 
-  // console.log(curComment);
   return (
     <div>
       {fetchError === "" ? (
@@ -47,7 +44,6 @@ const Track = (props) => {
               setFormVisible={setFormVisible}
               setNewComment={setNewComment}
               postNewComment={postNewComment}
-              getComment={getComment}
             />
           </Grid.Column>
         </Grid>
@@ -65,8 +61,6 @@ const mapStateToProps = (state) => {
     track: state.track.track,
     fetchError: state.track.error,
     audioFeatures: state.track.audioFeatures,
-    curComment: state.comment.curComment,
-    isCommented: state.comment.isCommented,
   };
 };
 

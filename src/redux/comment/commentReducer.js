@@ -6,6 +6,7 @@ const initState = {
   getLoading: false,
   isCommented: false,
   curComment: {},
+  latestComments: [],
   error: "",
 };
 
@@ -41,12 +42,20 @@ const commentReducer = (state = initState, action) => {
         curComment: action.payload,
         error: "",
       };
+    case comment.QUERY_LATEST_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        getLoading: false,
+        latestComments: action.payload,
+        error: "",
+      };
     case comment.PROCESS_COMMENT_FAILURE:
       return {
         ...state,
         postLoading: false,
         getLoading: false,
         curComment: {},
+        latestComments: [],
         error: action.payload,
       };
     default:
