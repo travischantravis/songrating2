@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import Comment from "./Comment";
 
 const LatestReviews = (props) => {
   const { latestComments, queryLatestComments } = props;
@@ -14,19 +15,7 @@ const LatestReviews = (props) => {
       <h3>Latest Reviews</h3>
       {latestComments &&
         latestComments.map((comment, i) => (
-          <div key={i} className="comment-container">
-            <p>
-              <span>
-                {i + 1}
-                {". "}
-                {comment.name}
-                {" - "}
-              </span>
-              <span className="comment-artists">{comment.artists} </span>
-              <span>{comment.rating}</span>
-            </p>
-            <p>{comment.comment}</p>
-          </div>
+          <Comment key={i} comment={comment} />
         ))}
     </div>
   );

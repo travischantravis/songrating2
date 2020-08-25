@@ -6,7 +6,8 @@
 
 /* Latest Comments */
 .comment-container {
-  margin-bottom: 16px;
+  padding: 16px 0;
+  border-top: 1px solid grey;
 }
 .comment-artists {
   color: #999;
