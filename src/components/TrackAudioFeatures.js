@@ -34,7 +34,7 @@ const processFeatures = (raw) => {
   // Convert to an array of arrays
   filtered = Object.entries(filtered);
 
-  // Sort according to key
+  // Sort according to key alphabetically
   filtered.sort((a, b) => {
     return a[0].localeCompare(b[0]);
   });

@@ -15,10 +15,6 @@ const SearchBar = (props) => {
     <div className="searchBarContainer">
       <Search
         loading={searchBarLoading}
-        // onResultSelect={(e, { result }) => {
-        //   e.preventDefault();
-        //   setInput(result.title);
-        // }}
         onSearchChange={_.debounce(
           (e, props) => {
             const { value } = props;

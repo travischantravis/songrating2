@@ -1,5 +1,12 @@
 import React from "react";
 import moment from "moment";
+import chroma from "chroma-js";
+import { Icon, Label } from "semantic-ui-react";
+
+const colorScale = chroma
+  .scale(["yellow", "lightgreen"])
+  .mode("lrgb")
+  .domain([0, 10]);
 
 const Comment = (props) => {
   const { comment } = props;
@@ -7,15 +14,28 @@ const Comment = (props) => {
   return (
     <div className="comment-container">
       <p>
-        <span>
+        <span style={{ fontWeight: "bold" }}>
           {comment.name}
           {" - "}
         </span>
         <span className="comment-artists">{comment.artists} </span>
-        <span>{comment.rating}/10 </span>
-        <span>{moment(comment.lastEdited).fromNow()}</span>
+        <span style={{ float: "right" }}>
+          <Label horizontal>
+            {comment.isFav ? <Icon color="teal" name="star" /> : null}
+            {comment.rating}/10
+          </Label>
+        </span>
       </p>
-      <p>{comment.comment}</p>
+      <p>
+        <span>{comment.comment}</span>
+        {/* <span style={{ float: "right", color: colorScale(comment.rating) }}>
+          {comment.rating}/10{" "}
+        </span> */}
+      </p>
+      <p style={{ marginTop: "5px" }}>
+        <Icon color="grey" name="time" />
+        {moment(comment.lastEdited).fromNow()}
+      </p>
     </div>
   );
 };

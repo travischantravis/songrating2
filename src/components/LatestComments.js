@@ -4,10 +4,9 @@ import Comment from "./Comment";
 
 const LatestReviews = (props) => {
   const { latestComments, queryLatestComments } = props;
-  const date = new Date().toISOString();
 
   useEffect(() => {
-    queryLatestComments(date);
+    queryLatestComments();
   }, []);
 
   return (

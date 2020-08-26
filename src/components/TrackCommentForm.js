@@ -34,7 +34,7 @@ const TrackCommentForm = (props) => {
         <div className="track-comment">
           <p>Rating: {curComment.rating}/10</p>
           <p>Comment: {curComment.comment}</p>
-          <p>Favorite? {curComment.isFav ? "Yes" : "No"}</p>
+          <p>{curComment.isFav ? "One of my favorite songs" : null}</p>
         </div>
       ) : null}
       {isFormVisible ? (
@@ -61,9 +61,12 @@ const TrackCommentForm = (props) => {
               values.lastEdited = new Date().toISOString();
               setNewComment(values);
               postNewComment(values);
-              setFormVisible(false);
               actions.setSubmitting(false);
-            }, 500);
+            }, 200);
+
+            setTimeout(() => {
+              setFormVisible(false);
+            }, 1000);
           }}
         >
           {(formikProps) => {

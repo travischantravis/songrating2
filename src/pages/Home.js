@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    queryLatestComments: (date) => dispatch(queryLatestComments(date)),
+    queryLatestComments: () => dispatch(queryLatestComments()),
   };
 };
 

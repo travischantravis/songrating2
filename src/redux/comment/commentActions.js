@@ -65,7 +65,7 @@ export const getComment = (id) => {
   };
 };
 
-export const queryLatestComments = (date) => {
+export const queryLatestComments = () => {
   const params = {
     TableName: "comments",
     IndexName: "queryByLastEdited",

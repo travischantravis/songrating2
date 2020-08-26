@@ -119,6 +119,12 @@ div.results {
   margin-right: 30px;
 }
 
+/* Comment Component */
+.comment-container p {
+  margin: 0;
+  margin-top: 5px;
+}
+
 /* Track Page */
 .track-summary {
   max-width: 300px;

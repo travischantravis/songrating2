@@ -1,4 +1,5 @@
 // Store access token in localStorage
+// Not being used at the moment
 export const setAuthState = (state) => {
   try {
     localStorage.setItem(

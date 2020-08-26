@@ -12,3 +12,10 @@
 .comment-artists {
   color: #999;
 }
+
+/* Mobile */
+@media only screen and (max-width: 568px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+}
