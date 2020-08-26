@@ -144,7 +144,7 @@ div.results {
 .audio-feature {
   max-width: 250px;
   /* temp fix */
-  transform: translate(-20px, 0);
+  transform: translate(-15px, 0);
 }
 .VictoryContainer > svg {
   overflow: visible;
@@ -179,4 +179,9 @@ div.results {
 
 .btn-cancel-form {
   margin-left: 5px;
+}
+
+.success-message {
+  max-width: 300px;
+  margin-bottom: 10px;
 }

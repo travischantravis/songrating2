@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "./SearchBar";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -8,6 +8,7 @@ const NavBar = () => {
       <Link className="my-link" to="/">
         <h2>Song Blog</h2>
       </Link>
+      <NavLink to="/signup">Sign Up</NavLink>
       <SearchBar />
     </div>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
+import { Message } from "semantic-ui-react";
 
 const validationSchema = Yup.object().shape({
   rating: Yup.number()
@@ -30,6 +31,11 @@ const TrackCommentForm = (props) => {
   return (
     <div>
       <h3>Track Comment</h3>
+      {/* <div className="success-message">
+        <Message positive>
+          <p>Comment added</p>
+        </Message>
+      </div> */}
       {isCommented && !isFormVisible ? (
         <div className="track-comment">
           <p>Rating: {curComment.rating}/10</p>

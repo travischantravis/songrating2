@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"songratingredux542c9008": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

@@ -13,6 +13,13 @@
   color: #999;
 }
 
+/* Tab */
+/* @media only screen and (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+} */
+
 /* Mobile */
 @media only screen and (max-width: 568px) {
   .dashboard {

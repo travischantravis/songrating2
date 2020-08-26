@@ -1,19 +1,13 @@
 import React from "react";
 import moment from "moment";
-import chroma from "chroma-js";
 import { Icon, Label } from "semantic-ui-react";
-
-const colorScale = chroma
-  .scale(["yellow", "lightgreen"])
-  .mode("lrgb")
-  .domain([0, 10]);
 
 const Comment = (props) => {
   const { comment } = props;
 
   return (
     <div className="comment-container">
-      <p>
+      <div>
         <span style={{ fontWeight: "bold" }}>
           {comment.name}
           {" - "}
@@ -25,12 +19,9 @@ const Comment = (props) => {
             {comment.rating}/10
           </Label>
         </span>
-      </p>
+      </div>
       <p>
         <span>{comment.comment}</span>
-        {/* <span style={{ float: "right", color: colorScale(comment.rating) }}>
-          {comment.rating}/10{" "}
-        </span> */}
       </p>
       <p style={{ marginTop: "5px" }}>
         <Icon color="grey" name="time" />

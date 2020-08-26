@@ -6,6 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
+import Amplify from "aws-amplify";
+import awsconfig from "./aws-exports";
+
+// used for auth
+Amplify.configure(awsconfig);
 
 function App() {
   return (
