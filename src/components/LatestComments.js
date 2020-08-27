@@ -10,7 +10,7 @@ const LatestReviews = (props) => {
   }, []);
 
   return (
-    <div className="box">
+    <div className="box box-hover">
       <h3>Latest Reviews</h3>
       {latestComments &&
         latestComments.map((comment, i) => (

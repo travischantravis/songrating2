@@ -3,7 +3,10 @@ import * as auth from "./authTypes";
 const initState = {
   signUpResult: {},
   isSignUpSuccess: false,
-  error: "",
+  signUpError: "",
+  signInResult: {},
+  isSignInSuccess: false,
+  signInError: "",
 };
 
 const authReducer = (state = initState, action) => {
@@ -13,14 +16,28 @@ const authReducer = (state = initState, action) => {
         ...state,
         signUpResult: action.payload,
         isSignUpSuccess: true,
-        error: "",
+        signUpError: "",
       };
-    case auth.AUTH_FAILURE:
+    case auth.SIGN_UP_FAILURE:
       return {
         ...state,
         signUpResult: {},
         isSignUpSuccess: false,
-        error: action.payload,
+        signUpError: action.payload,
+      };
+    case auth.SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        signInResult: action.payload,
+        isSignInSuccess: true,
+        signInError: "",
+      };
+    case auth.SIGN_IN_FAILURE:
+      return {
+        ...state,
+        signInResult: {},
+        isSignInSuccess: false,
+        signInError: action.payload,
       };
     default:
       return state;

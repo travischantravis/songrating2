@@ -22,7 +22,31 @@ export const signUp = (user) => {
     } catch (err) {
       console.log("error signing up:", err);
       dispatch({
-        type: auth.AUTH_FAILURE,
+        type: auth.SIGN_UP_FAILURE,
+        payload: err.message,
+      });
+    }
+  };
+};
+
+export const signIn = (user) => {
+  const { username, password } = user;
+
+  return async (dispatch) => {
+    try {
+      const { user } = await Auth.signIn({
+        username,
+        password,
+      });
+      console.log("sign in success", user);
+      dispatch({
+        type: auth.SIGN_IN_SUCCESS,
+        payload: user,
+      });
+    } catch (err) {
+      console.log("error signing in:", err);
+      dispatch({
+        type: auth.SIGN_IN_FAILURE,
         payload: err.message,
       });
     }

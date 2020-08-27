@@ -9,6 +9,7 @@ const NavBar = () => {
         <h2>Song Blog</h2>
       </Link>
       <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/signin">Sign In</NavLink>
       <SearchBar />
     </div>
   );

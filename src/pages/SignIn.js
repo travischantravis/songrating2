@@ -12,10 +12,7 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email addresss")
     .required("Required")
     .label("Username"),
-  password: Yup.string()
-    .required("Required")
-    .min(8, "Password is too short - should be 8 characters minimum.")
-    .label("Password"),
+  password: Yup.string().required("Required").label("Password"),
 });
 
 const MyTextInput = ({ label, ...props }) => {
@@ -30,30 +27,26 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-const SignUp = (props) => {
-  const { signUpResult, isSignUpSuccess, signUpError, signUp } = props;
-
-  console.log(isSignUpSuccess, signUpResult);
+const SignIn = () => {
   return (
     <div className="auth-form-container">
       <div className="box auth-form">
-        <h2>Sign Up</h2>
+        <h2>Sign In</h2>
         <Formik
           initialValues={{
-            name: "",
             username: "",
             password: "",
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, actions) => {
             console.log(values);
-            await new Promise(signUp(values));
+            // await new Promise(signUp(values));
 
             setTimeout(() => {
-              if (isSignUpSuccess) {
-                // If sign up is successful
-                actions.resetForm({});
-              }
+              // if (isSignUpSuccess) {
+              //   // If sign up is successful
+              //   actions.resetForm({});
+              // }
               actions.setSubmitting(false);
             }, 200);
           }}
@@ -62,12 +55,6 @@ const SignUp = (props) => {
             const { isSubmitting } = formikProps;
             return (
               <Form>
-                <MyTextInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Name"
-                />
                 <MyTextInput
                   label="Email"
                   name="username"
@@ -80,15 +67,15 @@ const SignUp = (props) => {
                   type="password"
                   placeholder="Password"
                 />
-                {signUpError ? (
-                  <div className="error-msg">{signUpError}</div>
-                ) : null}
+                {/* {signInError ? (
+                  <div className="error-msg">{signInError}</div>
+                ) : null} */}
                 <button
                   className="my-button btn-primary"
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Sign Up
+                  Sign In
                 </button>
               </Form>
             );
@@ -101,9 +88,8 @@ const SignUp = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    signUpResult: state.auth.signUpResult,
     isSignUpSuccess: state.auth.isSignUpSuccess,
-    signUpError: state.auth.signUpError,
+    error: state.auth.error,
   };
 };
 
@@ -113,4 +99,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
