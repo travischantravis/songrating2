@@ -4,10 +4,9 @@ import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 
 import "../styles/Auth.css";
-import { signUp } from "../redux/auth/authActions";
+import { signIn } from "../redux/auth/authActions";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Required").label("Name"),
   username: Yup.string()
     .email("Invalid email addresss")
     .required("Required")
@@ -27,7 +26,8 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-const SignIn = () => {
+const SignIn = (props) => {
+  const { signInError, signInResult, isSignInSuccess, signIn } = props;
   return (
     <div className="auth-form-container">
       <div className="box auth-form">
@@ -40,10 +40,11 @@ const SignIn = () => {
           validationSchema={validationSchema}
           onSubmit={async (values, actions) => {
             console.log(values);
-            // await new Promise(signUp(values));
+            await new Promise(signIn(values));
 
+            console.log(signInResult, signInError, isSignInSuccess);
             setTimeout(() => {
-              // if (isSignUpSuccess) {
+              // if (isSignInSuccess) {
               //   // If sign up is successful
               //   actions.resetForm({});
               // }
@@ -73,9 +74,9 @@ const SignIn = () => {
                 <button
                   className="my-button btn-primary"
                   type="submit"
-                  disabled={isSubmitting}
+                  // disabled={isSubmitting}
                 >
-                  Sign In
+                  Sign In {isSubmitting}
                 </button>
               </Form>
             );
@@ -88,14 +89,15 @@ const SignIn = () => {
 
 const mapStateToProps = (state) => {
   return {
-    isSignUpSuccess: state.auth.isSignUpSuccess,
-    error: state.auth.error,
+    signInResult: state.auth.signInResult,
+    isSignInSuccess: state.auth.isSignInSuccess,
+    signInError: state.auth.signInError,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signUp: (user) => dispatch(signUp(user)),
+    signIn: (user) => dispatch(signIn(user)),
   };
 };
 

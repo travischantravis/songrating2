@@ -2,11 +2,11 @@ import * as auth from "./authTypes";
 
 const initState = {
   signUpResult: {},
-  isSignUpSuccess: false,
   signUpError: "",
+  isSignUpSuccess: false,
   signInResult: {},
-  isSignInSuccess: false,
   signInError: "",
+  isSignInSuccess: false,
 };
 
 const authReducer = (state = initState, action) => {
