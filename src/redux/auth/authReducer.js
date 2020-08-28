@@ -7,6 +7,8 @@ const initState = {
   signInResult: {},
   signInError: "",
   isSignInSuccess: false,
+  signOutError: "",
+  name: "",
 };
 
 const authReducer = (state = initState, action) => {
@@ -29,6 +31,7 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         signInResult: action.payload,
+        name: action.payload.attributes.name,
         isSignInSuccess: true,
         signInError: "",
       };
@@ -36,8 +39,23 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         signInResult: {},
+        name: "",
         isSignInSuccess: false,
         signInError: action.payload,
+      };
+    case auth.SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        signInResult: {},
+        name: "",
+        isSignInSuccess: false,
+        signOutError: "",
+      };
+    case auth.SIGN_OUT_FAILURE:
+      return {
+        ...state,
+        isSignInSuccess: false,
+        signOutError: action.payload,
       };
     default:
       return state;

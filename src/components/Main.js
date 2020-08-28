@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Track from "../pages/Track";
@@ -8,13 +8,14 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 
 const Main = (props) => {
-  // const { isSignUpSuccess } = props;
-  // console.log(isSignUpSuccess);
+  const { isSignInSuccess } = props;
   return (
     <div className="main">
       <Route exact path="/" component={Home} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/signin" component={SignIn} />
+      <Route path="/signin">
+        {isSignInSuccess ? <Redirect to="/" /> : <SignIn />}
+      </Route>
       <Route path="/track/:id" component={Track} />
     </div>
   );
@@ -22,7 +23,7 @@ const Main = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isSignUpSuccess: state.auth.isSignUpSuccess, //unused
+    isSignInSuccess: state.auth.isSignInSuccess,
   };
 };
 

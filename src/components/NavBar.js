@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import SearchBar from "./SearchBar";
-import { Link, NavLink } from "react-router-dom";
+import AuthStatus from "./AuthStatus";
 
 const NavBar = () => {
   return (
@@ -8,8 +10,8 @@ const NavBar = () => {
       <Link className="my-link" to="/">
         <h2>Song Blog</h2>
       </Link>
-      <NavLink to="/signup">Sign Up</NavLink>
-      <NavLink to="/signin">Sign In</NavLink>
+
+      <AuthStatus />
       <SearchBar />
     </div>
   );

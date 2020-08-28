@@ -34,7 +34,7 @@ export const signIn = (user) => {
 
   return async (dispatch) => {
     try {
-      const { user } = await Auth.signIn({
+      const user = await Auth.signIn({
         username,
         password,
       });
@@ -48,6 +48,24 @@ export const signIn = (user) => {
       dispatch({
         type: auth.SIGN_IN_FAILURE,
         payload: err.message,
+      });
+    }
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch) => {
+    try {
+      await Auth.signOut();
+      console.log("sign out success");
+      dispatch({
+        type: auth.SIGN_OUT_SUCCESS,
+      });
+    } catch (err) {
+      console.log("error signing out:", err);
+      dispatch({
+        type: auth.SIGN_OUT_FAILURE,
+        payload: err,
       });
     }
   };

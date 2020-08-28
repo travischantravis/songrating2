@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 
@@ -27,7 +28,8 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const SignIn = (props) => {
-  const { signInError, signInResult, isSignInSuccess, signIn } = props;
+  const { signInError, isSignInSuccess, signIn } = props;
+
   return (
     <div className="auth-form-container">
       <div className="box auth-form">
@@ -39,17 +41,14 @@ const SignIn = (props) => {
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, actions) => {
-            console.log(values);
-            await new Promise(signIn(values));
-
-            console.log(signInResult, signInError, isSignInSuccess);
+            signIn(values);
             setTimeout(() => {
-              // if (isSignInSuccess) {
-              //   // If sign up is successful
-              //   actions.resetForm({});
-              // }
+              if (isSignInSuccess) {
+                // If sign up is successful
+                actions.resetForm({});
+              }
               actions.setSubmitting(false);
-            }, 200);
+            }, 500);
           }}
         >
           {(formikProps) => {
@@ -68,16 +67,21 @@ const SignIn = (props) => {
                   type="password"
                   placeholder="Password"
                 />
-                {/* {signInError ? (
+                {signInError ? (
                   <div className="error-msg">{signInError}</div>
-                ) : null} */}
+                ) : null}
                 <button
                   className="my-button btn-primary"
                   type="submit"
-                  // disabled={isSubmitting}
+                  disabled={isSubmitting}
                 >
                   Sign In {isSubmitting}
                 </button>
+                <Link to="/signup">
+                  <button type="button" className="my-button">
+                    Create a new account
+                  </button>
+                </Link>
               </Form>
             );
           }}
@@ -89,7 +93,6 @@ const SignIn = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    signInResult: state.auth.signInResult,
     isSignInSuccess: state.auth.isSignInSuccess,
     signInError: state.auth.signInError,
   };

@@ -1,0 +1,10 @@
+[
+    {
+        "groupName": "songrating2",
+        "precedence": 1
+    },
+    {
+        "groupName": "songrating3",
+        "precedence": 2
+    }
+]
