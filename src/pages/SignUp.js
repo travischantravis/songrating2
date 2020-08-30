@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 
@@ -31,9 +32,8 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const SignUp = (props) => {
-  const { signUpResult, isSignUpSuccess, signUpError, signUp } = props;
+  const { isSignUpSuccess, signUpError, signUp } = props;
 
-  console.log(isSignUpSuccess, signUpResult);
   return (
     <div className="auth-form-container">
       <div className="box auth-form">
@@ -90,6 +90,11 @@ const SignUp = (props) => {
                 >
                   Sign Up
                 </button>
+                <Link to="/signin">
+                  <button type="button" className="my-button margin-left-5">
+                    Sign In
+                  </button>
+                </Link>
               </Form>
             );
           }}
@@ -101,7 +106,6 @@ const SignUp = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    signUpResult: state.auth.signUpResult,
     isSignUpSuccess: state.auth.isSignUpSuccess,
     signUpError: state.auth.signUpError,
   };

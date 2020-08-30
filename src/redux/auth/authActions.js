@@ -17,7 +17,6 @@ export const signUp = (user) => {
       console.log("sign up success", user);
       dispatch({
         type: auth.SIGN_UP_SUCCESS,
-        payload: user,
       });
     } catch (err) {
       console.log("error signing up:", err);
@@ -65,6 +64,25 @@ export const signOut = () => {
       console.log("error signing out:", err);
       dispatch({
         type: auth.SIGN_OUT_FAILURE,
+        payload: err,
+      });
+    }
+  };
+};
+
+export const getCurrentUser = () => {
+  return async (dispatch) => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      console.log("user is signed in", user);
+      dispatch({
+        type: auth.GET_USER_SUCCESS,
+        payload: user,
+      });
+    } catch (err) {
+      console.log("user is not signed in", err);
+      dispatch({
+        type: auth.GET_USER_FAILURE,
         payload: err,
       });
     }

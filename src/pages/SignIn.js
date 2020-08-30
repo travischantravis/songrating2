@@ -43,10 +43,10 @@ const SignIn = (props) => {
           onSubmit={async (values, actions) => {
             signIn(values);
             setTimeout(() => {
-              if (isSignInSuccess) {
-                // If sign up is successful
-                actions.resetForm({});
-              }
+              // if (isSignInSuccess) {
+              // If sign up is successful
+              // actions.resetForm({});
+              // }
               actions.setSubmitting(false);
             }, 500);
           }}
@@ -78,7 +78,7 @@ const SignIn = (props) => {
                   Sign In {isSubmitting}
                 </button>
                 <Link to="/signup">
-                  <button type="button" className="my-button">
+                  <button type="button" className="my-button margin-left-5">
                     Create a new account
                   </button>
                 </Link>

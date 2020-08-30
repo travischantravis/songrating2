@@ -119,7 +119,7 @@ const TrackCommentForm = (props) => {
                     {isCommented ? "Edit" : "Add"}
                   </button>
                   <button
-                    className="my-button btn-cancel-form"
+                    className="my-button margin-left-5"
                     type="button"
                     onClick={() => {
                       setFormVisible(false);

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { signOut } from "../redux/auth/authActions";
+import { signOut, getCurrentUser } from "../redux/auth/authActions";
 
 const AuthStatus = (props) => {
-  const { isSignInSuccess, name, signOut } = props;
-
+  const { isSignInSuccess, name, signOut, getCurrentUser } = props;
+  useEffect(() => {
+    getCurrentUser();
+    // console.log(authUser);
+  }, []);
   return (
     <div>
       {isSignInSuccess ? (
         <>
-          {name}
+          <Link to="/profile">{name}</Link>
           <Link to="/">
             <button
               className="my-button"
@@ -47,6 +50,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
+    getCurrentUser: () => dispatch(getCurrentUser()),
   };
 };
 

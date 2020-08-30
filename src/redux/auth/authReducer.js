@@ -1,14 +1,13 @@
 import * as auth from "./authTypes";
 
 const initState = {
-  signUpResult: {},
-  signUpError: "",
-  isSignUpSuccess: false,
-  signInResult: {},
-  signInError: "",
-  isSignInSuccess: false,
-  signOutError: "",
   name: "",
+  signUpError: "",
+  signInError: "",
+  signOutError: "",
+  currentUserError: "",
+  isSignInSuccess: false,
+  isSignUpSuccess: false,
 };
 
 const authReducer = (state = initState, action) => {
@@ -16,21 +15,18 @@ const authReducer = (state = initState, action) => {
     case auth.SIGN_UP_SUCCESS:
       return {
         ...state,
-        signUpResult: action.payload,
         isSignUpSuccess: true,
         signUpError: "",
       };
     case auth.SIGN_UP_FAILURE:
       return {
         ...state,
-        signUpResult: {},
         isSignUpSuccess: false,
         signUpError: action.payload,
       };
     case auth.SIGN_IN_SUCCESS:
       return {
         ...state,
-        signInResult: action.payload,
         name: action.payload.attributes.name,
         isSignInSuccess: true,
         signInError: "",
@@ -38,7 +34,6 @@ const authReducer = (state = initState, action) => {
     case auth.SIGN_IN_FAILURE:
       return {
         ...state,
-        signInResult: {},
         name: "",
         isSignInSuccess: false,
         signInError: action.payload,
@@ -46,7 +41,6 @@ const authReducer = (state = initState, action) => {
     case auth.SIGN_OUT_SUCCESS:
       return {
         ...state,
-        signInResult: {},
         name: "",
         isSignInSuccess: false,
         signOutError: "",
@@ -56,6 +50,20 @@ const authReducer = (state = initState, action) => {
         ...state,
         isSignInSuccess: false,
         signOutError: action.payload,
+      };
+    case auth.GET_USER_SUCCESS:
+      return {
+        ...state,
+        name: action.payload.attributes.name,
+        isSignInSuccess: true,
+        currentUserError: "",
+      };
+    case auth.GET_USER_FAILURE:
+      return {
+        ...state,
+        name: "",
+        isSignInSuccess: false,
+        currentUserError: action.payload,
       };
     default:
       return state;
