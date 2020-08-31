@@ -1,6 +1,6 @@
-import * as auth from "./authTypes";
-
 import { Auth } from "aws-amplify";
+import * as auth from "./authTypes";
+import myAWS from "../../config/S3";
 
 export const signUp = (user) => {
   const { username, password, name } = user;
@@ -71,6 +71,28 @@ export const signOut = () => {
 };
 
 export const getCurrentUser = () => {
+  return async (dispatch) => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      console.log("user is signed in", user);
+      dispatch({
+        type: auth.GET_USER_SUCCESS,
+        payload: user,
+      });
+    } catch (err) {
+      console.log("user is not signed in", err);
+      dispatch({
+        type: auth.GET_USER_FAILURE,
+        payload: err,
+      });
+    }
+  };
+};
+
+export const uploadProfilePic = () => {
+  // Create S3 service object
+  const s3 = new myAWS.S3({ apiVersion: "2006-03-01" });
+
   return async (dispatch) => {
     try {
       const user = await Auth.currentAuthenticatedUser();

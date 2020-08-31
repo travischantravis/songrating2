@@ -1,19 +1,26 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Label } from "semantic-ui-react";
+
 import { signOut, getCurrentUser } from "../redux/auth/authActions";
 
 const AuthStatus = (props) => {
   const { isSignInSuccess, name, signOut, getCurrentUser } = props;
+
   useEffect(() => {
     getCurrentUser();
-    // console.log(authUser);
   }, []);
   return (
     <div>
       {isSignInSuccess ? (
         <>
-          <Link to="/profile">{name}</Link>
+          <Link to="/profile">
+            <Label image>
+              <img src="https://react.semantic-ui.com/images/wireframe/square-image.png" />
+              {name}
+            </Label>
+          </Link>
           <Link to="/">
             <button
               className="my-button"
