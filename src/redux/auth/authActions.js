@@ -1,6 +1,7 @@
 import { Auth } from "aws-amplify";
 import * as auth from "./authTypes";
 import myAWS from "../../config/S3";
+import axios from "axios";
 
 export const signUp = (user) => {
   const { username, password, name } = user;
@@ -89,24 +90,20 @@ export const getCurrentUser = () => {
   };
 };
 
-export const uploadProfilePic = () => {
-  // Create S3 service object
-  const s3 = new myAWS.S3({ apiVersion: "2006-03-01" });
+// Test
+export const uploadProfilePic = (file) => {
+  console.log(file);
+  const formData = new FormData();
+  formData.append("file", file);
 
-  return async (dispatch) => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log("user is signed in", user);
-      dispatch({
-        type: auth.GET_USER_SUCCESS,
-        payload: user,
-      });
-    } catch (err) {
-      console.log("user is not signed in", err);
-      dispatch({
-        type: auth.GET_USER_FAILURE,
-        payload: err,
-      });
-    }
-  };
+  axios
+    .post("http://localhost:3001/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => console.log(err));
 };
