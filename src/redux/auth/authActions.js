@@ -90,20 +90,32 @@ export const getCurrentUser = () => {
   };
 };
 
-// Test
+// Upload profile pic
 export const uploadProfilePic = (file) => {
   console.log(file);
   const formData = new FormData();
   formData.append("file", file);
 
-  axios
-    .post("http://localhost:3001/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => console.log(err));
+  return (dispatch) => {
+    console.log(formData);
+    return axios
+      .post("http://localhost:3001/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: auth.UPLOAD_PIC_SUCCESS,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({
+          type: auth.UPLOAD_PIC_FAILURE,
+          payload: err,
+        });
+      });
+  };
 };

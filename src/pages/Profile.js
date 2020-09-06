@@ -1,34 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import ImageUpload from "../components/ImageUpload";
 import { uploadProfilePic } from "../redux/auth/authActions";
 
-const Profile = () => {
-  const [file, setFile] = useState();
+const Profile = (props) => {
+  const { uploadProfilePic } = props;
   return (
     <div>
       <h2>Your Profile</h2>
-      <p>Upload your profile image</p>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(file[0]);
-          uploadProfilePic(file[0]);
-        }}
-      >
-        <input
-          label="upload file"
-          type="file"
-          accept="image/*"
-          multiple={false}
-          onChange={(e) => {
-            setFile(e.target.files);
-          }}
-        />
-        <button className="my-button" type="submit">
-          Upload
-        </button>
-      </form>
+      <ImageUpload uploadProfilePic={uploadProfilePic} />
     </div>
   );
 };
 
-export default Profile;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadProfilePic: (file) => dispatch(uploadProfilePic(file)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Profile);
