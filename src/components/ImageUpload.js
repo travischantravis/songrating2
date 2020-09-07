@@ -1,20 +1,29 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Progress } from "semantic-ui-react";
 
 const ImageUpload = (props) => {
-  const { isUploadPicSuccess, uploadProfilePic } = props;
+  const {
+    isUploadPicSuccess,
+    isUploadPicLoading,
+    uploadPicProgress,
+    uploadProfilePic,
+  } = props;
   const [file, setFile] = useState();
-  const [fileUrl, setFileUrl] = useState(
+  const [previewUrl, setPreviewUrl] = useState(
     "https://react.semantic-ui.com/images/wireframe/square-image.png"
   );
 
+  console.log(uploadPicProgress);
   return (
     <div>
       <p>Update your profile image</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          uploadProfilePic(file[0]);
+          if (file) {
+            uploadProfilePic(file[0]);
+          }
         }}
       >
         <input
@@ -23,37 +32,46 @@ const ImageUpload = (props) => {
           multiple={false}
           onChange={(e) => {
             setFile(e.target.files);
-            URL.revokeObjectURL(fileUrl);
-            setFileUrl(URL.createObjectURL(e.target.files[0]));
+            // Remove existing url to avoid memory leak
+            URL.revokeObjectURL(previewUrl);
+            setPreviewUrl(URL.createObjectURL(e.target.files[0]));
           }}
         />
+        <div className="preview-img-container">
+          <img src={previewUrl} className="preview-img" alt="profile pic" />
+        </div>
         <button className="my-button" type="submit">
-          Upload
+          Save
         </button>
+
+        <div>
+          {isUploadPicLoading ? (
+            <Progress
+              className="progress-bar"
+              percent={uploadPicProgress}
+              color="teal"
+              size="tiny"
+              active
+            >
+              Loading...
+            </Progress>
+          ) : null}
+        </div>
+        <div>
+          {isUploadPicSuccess ? (
+            <p style={{ color: "teal" }}>Upload successful!</p>
+          ) : null}
+        </div>
       </form>
-      <div
-        style={{
-          height: "100px",
-          width: "100px",
-          border: "1px dashed black",
-        }}
-      >
-        <img
-          src={fileUrl}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-        />
-      </div>
-      <div>{isUploadPicSuccess ? <p>Upload successful!</p> : null}</div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    isUploadPicSuccess: state.auth.isUploadPicSuccess,
+    isUploadPicSuccess: state.profile.isUploadPicSuccess,
+    isUploadPicLoading: state.profile.isUploadPicLoading,
+    uploadPicProgress: state.profile.uploadPicProgress,
   };
 };
 

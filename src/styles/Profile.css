@@ -1,0 +1,16 @@
+.preview-img-container {
+  width: 100px;
+  height: 100px;
+  border: 1px dashed black;
+}
+
+.preview-img {
+  width: 100%;
+}
+
+.progress-bar {
+  width: 100px;
+}
+/* .progress-bar .bar {
+  height: 15px !important;
+} */

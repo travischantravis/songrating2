@@ -6,10 +6,8 @@ const initState = {
   signInError: "",
   signOutError: "",
   currentUserError: "",
-  uploadPicError: "",
   isSignInSuccess: false,
   isSignUpSuccess: false,
-  isUploadPicSuccess: false,
 };
 
 const authReducer = (state = initState, action) => {
@@ -66,18 +64,6 @@ const authReducer = (state = initState, action) => {
         name: "",
         isSignInSuccess: false,
         currentUserError: action.payload,
-      };
-    case auth.UPLOAD_PIC_SUCCESS:
-      return {
-        ...state,
-        isUploadPicSuccess: true,
-        uploadPicError: "",
-      };
-    case auth.UPLOAD_PIC_FAILURE:
-      return {
-        ...state,
-        isUploadPicSuccess: false,
-        uploadPicError: action.payload,
       };
     default:
       return state;

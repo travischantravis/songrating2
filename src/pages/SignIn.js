@@ -28,7 +28,7 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const SignIn = (props) => {
-  const { signInError, isSignInSuccess, signIn } = props;
+  const { signInError, signIn } = props;
 
   return (
     <div className="auth-form-container">

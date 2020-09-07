@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import ImageUpload from "../components/ImageUpload";
-import { uploadProfilePic } from "../redux/auth/authActions";
+import { uploadProfilePic } from "../redux/profile/profileActions";
+import "../styles/Profile.css";
 
 const Profile = (props) => {
   const { uploadProfilePic } = props;

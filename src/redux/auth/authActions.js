@@ -1,7 +1,5 @@
 import { Auth } from "aws-amplify";
 import * as auth from "./authTypes";
-import myAWS from "../../config/S3";
-import axios from "axios";
 
 export const signUp = (user) => {
   const { username, password, name } = user;
@@ -87,35 +85,5 @@ export const getCurrentUser = () => {
         payload: err,
       });
     }
-  };
-};
-
-// Upload profile pic
-export const uploadProfilePic = (file) => {
-  console.log(file);
-  const formData = new FormData();
-  formData.append("file", file);
-
-  return (dispatch) => {
-    console.log(formData);
-    return axios
-      .post("http://localhost:3001/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: auth.UPLOAD_PIC_SUCCESS,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({
-          type: auth.UPLOAD_PIC_FAILURE,
-          payload: err,
-        });
-      });
   };
 };
