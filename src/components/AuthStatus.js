@@ -16,7 +16,7 @@ const AuthStatus = (props) => {
       {isSignInSuccess ? (
         <>
           <Link to="/profile">
-            <Label image>
+            <Label image size="medium">
               <img
                 src="https://react.semantic-ui.com/images/wireframe/square-image.png"
                 alt="profile pic"

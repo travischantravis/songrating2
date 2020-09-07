@@ -11,6 +11,9 @@ export const signUp = (user) => {
         password,
         attributes: {
           name: name,
+          // default profile pic
+          profileUrl:
+            "https://react.semantic-ui.com/images/wireframe/square-image.png",
         },
       });
       console.log("sign up success", user);
