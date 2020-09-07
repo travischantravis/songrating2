@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Progress } from "semantic-ui-react";
+import { Progress, Icon } from "semantic-ui-react";
 
 const ImageUpload = (props) => {
   const {
@@ -26,21 +26,28 @@ const ImageUpload = (props) => {
           }
         }}
       >
-        <input
-          type="file"
-          accept="image/*"
-          multiple={false}
-          onChange={(e) => {
-            setFile(e.target.files);
-            // Remove existing url to avoid memory leak
-            URL.revokeObjectURL(previewUrl);
-            setPreviewUrl(URL.createObjectURL(e.target.files[0]));
-          }}
-        />
+        <div className="margin-bottom-5">
+          <label className="my-button" htmlFor="pic-upload">
+            <Icon color="grey" name="upload" />
+            Choose an image
+          </label>
+          <input
+            id="pic-upload"
+            type="file"
+            accept="image/*"
+            multiple={false}
+            onChange={(e) => {
+              setFile(e.target.files);
+              // Remove existing url to avoid memory leak
+              URL.revokeObjectURL(previewUrl);
+              setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+            }}
+          />
+        </div>
         <div className="preview-img-container">
           <img src={previewUrl} className="preview-img" alt="profile pic" />
         </div>
-        <button className="my-button" type="submit">
+        <button className="my-button margin-top-5" type="submit">
           Save
         </button>
 

@@ -10,6 +10,17 @@
   min-height: 80vh;
 }
 
+/* Utilities */
+.margin-left-5 {
+  margin-left: 5px;
+}
+.margin-top-5 {
+  margin-top: 5px;
+}
+.margin-bottom-5 {
+  margin-bottom: 5px;
+}
+
 /* Button */
 button:focus {
   outline: none;
@@ -175,10 +186,6 @@ div.results {
 
 .checkbox-label {
   font-weight: 600;
-}
-
-.margin-left-5 {
-  margin-left: 5px;
 }
 
 .success-message {

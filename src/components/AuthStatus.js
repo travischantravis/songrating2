@@ -17,7 +17,10 @@ const AuthStatus = (props) => {
         <>
           <Link to="/profile">
             <Label image>
-              <img src="https://react.semantic-ui.com/images/wireframe/square-image.png" />
+              <img
+                src="https://react.semantic-ui.com/images/wireframe/square-image.png"
+                alt="profile pic"
+              />
               {name}
             </Label>
           </Link>

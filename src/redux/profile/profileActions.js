@@ -1,7 +1,11 @@
 import * as profile from "./profileTypes";
 import axios from "axios";
+import myAWS from "../../config/S3";
 
-// Upload profile pic
+const s3 = new myAWS.S3();
+const bucketName = "songratingredux-profilepic";
+
+// Upload profile pic to S3
 export const uploadProfilePic = (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -42,3 +46,25 @@ export const uploadProfilePic = (file) => {
       });
   };
 };
+
+// Get profile pic from S3
+export const getProfilePic = async (key) => {
+  try {
+    const params = {
+      Bucket: bucketName,
+      Key: "1599419682072-img.jpg",
+    };
+
+    const data = await s3.getObject(params).promise();
+    return encode(data.Body);
+  } catch (e) {
+    throw new Error(`Could not retrieve file from S3: ${e.message}`);
+  }
+};
+
+function encode(data) {
+  var str = data.reduce(function (a, b) {
+    return a + String.fromCharCode(b);
+  }, "");
+  return btoa(str).replace(/.{76}(?=.)/g, "$&\n");
+}

@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import { Message } from "semantic-ui-react";
 
 const validationSchema = Yup.object().shape({
   rating: Yup.number()
